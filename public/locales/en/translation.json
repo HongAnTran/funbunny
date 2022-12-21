@@ -1,0 +1,14 @@
+{
+    "navbar":{
+        "dashboard":"Dashboard",
+        "analytics":"Analytics",
+        "tasks":"Tasks",
+        "insights":"Insights"
+    },
+    "card":{
+        "total_spending":"Total Spending",
+        "total_income":"Total Income"
+        
+    }
+}
+  
