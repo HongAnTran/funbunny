@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { forwardRef, ReactElement, ReactNode } from 'react';
+import { forwardRef,  ReactNode } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';

@@ -1,4 +1,5 @@
-import { createTheme } from '@mui/material/styles';
+import { CustomState } from '../redux/slices/customSlice/customSlice';
+import { createTheme , ThemeOptions ,PaletteOptions} from '@mui/material/styles';
 
 // assets
 import colors from '../assets/scss/_themes-vars.module.scss';
@@ -21,7 +22,6 @@ export const theme = (customization) => {
             darkTextPrimary: color.grey700,
             darkTextSecondary: color.grey500,
             textDark: color.grey900,
-            
             menuSelected: color.secondaryDark,
             menuSelectedBack: color.secondaryLight,
             divider: color.grey200,

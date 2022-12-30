@@ -8,7 +8,7 @@ import Loadable from "../ui-component/Loadable";
 
 import MainLayout from "../layout/MainLayout";
 const DashboardDefault = Loadable(
-  lazy(() => import("../views/dashboard/Default"))
+  lazy(() => import("../views/dashboard"))
 );
 
 

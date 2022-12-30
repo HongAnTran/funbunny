@@ -6,20 +6,19 @@ import { styled, useTheme } from '@mui/material/styles';
 import { Avatar, Box, Grid, Typography ,Button} from '@mui/material';
 
 // project imports
-import MainCard from '../../../ui-component/cards/MainCard';
-import SkeletonEarningCard from '../../../ui-component/cards/Skeleton/EarningCard';
+import MainCard from '../../ui-component/cards/MainCard';
+import SkeletonEarningCard from '../../ui-component/cards/Skeleton/EarningCard';
 
 // assets
-import EarningIcon from '../../../assets/images/icons/earning.svg';
+import EarningIcon from '../../assets/images/icons/earning.svg';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
-
 import { useTranslation } from 'react-i18next';
 
 const CardWrapper = styled(MainCard)(({ theme } : { theme: any}) => ({
     backgroundColor: theme.palette.mode ==='dark' ? theme.palette.dark.dark: theme.palette.secondary.dark,
     color: '#fff',
     overflow: 'hidden',
+    height:'100%',
     position: 'relative',
     '&>div': {
         position: 'relative',

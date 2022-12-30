@@ -2,8 +2,30 @@
  * Color intention that you want to used in your theme
  * @param {JsonObject} theme Theme customization object
  */
+import { PaletteOptions } from '@mui/material/styles';
 
-export default function themePalette(theme )  {
+interface DarkPalette{
+        light: any
+        main: any
+        dark:any
+        800: any
+        900:any
+  
+}
+
+interface OrangePalette{
+    light: any
+    main: any
+    dark: any
+
+}
+
+export interface PaletteOptionsExtends extends PaletteOptions{
+    dark: DarkPalette
+    orange : OrangePalette
+}
+
+export default function themePalette(theme  : any) : PaletteOptionsExtends  {
     return {
         mode: theme?.customization?.mode,
         common: {
@@ -63,8 +85,8 @@ export default function themePalette(theme )  {
         text: {
             primary: theme.darkTextPrimary,
             secondary: theme.darkTextSecondary,
-            dark: theme.textDark,
-            hint: theme.colors?.grey100
+            // dark: theme.textDark,
+            // hint: theme.colors?.grey100
         },
         background: {
             paper: theme.paper,

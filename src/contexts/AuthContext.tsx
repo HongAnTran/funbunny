@@ -1,9 +1,9 @@
-import React , { useContext , createContext , useState  , ReactNode , useEffect } from 'react'
+import React , {  createContext , useState  , ReactNode , useEffect } from 'react'
 import {  onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase'
 import Loader from '../ui-component/Loader';
 
-import  type { User } from '../types/interface'
+import  type { User } from '../types'
 interface InitializeContext{ 
     isAuth : boolean;
     user : User;
@@ -11,11 +11,9 @@ interface InitializeContext{
 }
 
 
+ 
+export const authContext = createContext<InitializeContext>({} as InitializeContext)
 
-const authContext = createContext<InitializeContext>({} as InitializeContext)
-export const useAuthContext = () =>{
-    return useContext(authContext)
-}
 function AuthContext({children} : { children: ReactNode}) {
     const [isAuth, setIsAuth] = useState(false);
     const [isLoading, setIsLoading] = useState(true);

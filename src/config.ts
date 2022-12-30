@@ -1,11 +1,7 @@
 
-import { PaletteMode } from '@mui/material' 
-import  { KEY_MODE_CONFIG   , KEY_LANG_CONFIG } from './constans/constant'
 
-export interface Languages {
-    name: string,
-    value: 'en' | 'vi'
-}
+import  { KEY_MODE_CONFIG   , KEY_LANG_CONFIG } from './constans/constant'
+import { Config, Languages } from './types/config/config'
 
 export const listLanguages :Languages[]  = [
     {
@@ -18,14 +14,7 @@ export const listLanguages :Languages[]  = [
     },
 ]
 
-export interface Config {
-    basename:string;
-    defaultPath:string;
-    fontFamily:`'Roboto', sans-serif` | `'Poppins', sans-serif` | `'Inter', sans-serif`;
-    borderRadius: number;
-    i18n:'en' | 'vi' | string;
-    mode:PaletteMode | string;
-}
+
 
 const modeLocal : string | 'light'   = JSON.parse(localStorage.getItem(KEY_MODE_CONFIG) || JSON.stringify('light'))  
 const langLocal : string | 'vi'   = JSON.parse(localStorage.getItem(KEY_LANG_CONFIG) || JSON.stringify('vi'))
@@ -37,6 +26,7 @@ const config : Config = {
     fontFamily: `'Poppins', sans-serif`,
     borderRadius: 8,
     i18n: langLocal, // 'en' - English, 'vi' - Vietnamese,
+    i18nDefault: 'vi', // 'en' - English, 'vi' - Vietnamese,
     mode:modeLocal,
 };
 

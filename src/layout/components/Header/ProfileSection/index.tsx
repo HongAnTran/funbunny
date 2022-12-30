@@ -30,8 +30,9 @@ import type { RootState } from '../../../../redux/store'
 
 // assets
 import { IconLogout, IconSettings } from '@tabler/icons';
+import { useAuthContext } from '../../../../hooks';
 // ==============================|| PROFILE MENU ||============================== //
-import { useAuthContext } from '../../../../contexts/AuthContext';
+
 
 
 const ProfileSection = () => {

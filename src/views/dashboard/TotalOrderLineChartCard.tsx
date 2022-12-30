@@ -9,8 +9,8 @@ import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 import Chart from 'react-apexcharts';
 
 // project imports
-import MainCard from '../../../ui-component/cards/MainCard';
-import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/EarningCard';
+import MainCard from '../../ui-component/cards/MainCard';
+import SkeletonTotalOrderCard from '../../ui-component/cards/Skeleton/EarningCard';
 
 import ChartDataMonth from './chart-data/total-order-month-line-chart';
 import ChartDataYear from './chart-data/total-order-year-line-chart';
@@ -18,9 +18,11 @@ import ChartDataYear from './chart-data/total-order-year-line-chart';
 // assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { useTranslation } from 'react-i18next';
 
 const CardWrapper = styled(MainCard)(({ theme } : { theme : any}) => ({
     backgroundColor: theme.palette.mode ==='dark' ? theme.palette.dark.dark: theme.palette.primary.dark,
+    height:'100%',
 
     color: '#fff',
     overflow: 'hidden',
@@ -66,6 +68,7 @@ const CardWrapper = styled(MainCard)(({ theme } : { theme : any}) => ({
 
 const TotalOrderLineChartCard = ({ isLoading } : {isLoading : boolean}) => {
     const theme : any= useTheme();
+    const { t } = useTranslation()
 
     const [timeValue, setTimeValue] = useState(false);
     const handleChangeTime = (event : any, newValue : any) => {
@@ -153,7 +156,7 @@ const TotalOrderLineChartCard = ({ isLoading } : {isLoading : boolean}) => {
                                                         color: theme.palette.primary[200]
                                                     }}
                                                 >
-                                                    Total Order
+                                                    {t('card.total_income')}
                                                 </Typography>
                                             </Grid>
                                         </Grid>

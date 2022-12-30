@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { forwardRef, ReactNode, Ref } from 'react';
 
 // material-ui

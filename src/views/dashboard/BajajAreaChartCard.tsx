@@ -12,7 +12,7 @@ import Chart from 'react-apexcharts';
 // project imports
 import chartData from './chart-data/bajaj-area-chart';
 
-import type { RootState } from '../../../redux/store';
+import type { RootState } from '../../redux/store';
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
 const BajajAreaChartCard = () => {

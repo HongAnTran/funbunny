@@ -22,32 +22,46 @@ import {
 import * as Yup from "yup";
 import { Formik } from "formik";
 
-import Google from '../../../assets/images/icons/social-google.svg';
 import AnimateButton from "../../../ui-component/extended/AnimateButton";
+
 import {
   strengthColor,
   strengthIndicator,
 } from "../../../utils/password-strength";
 
+// firebase
+import { createUserWithEmailAndPassword  ,updateProfile} from "firebase/auth";
+import { auth } from "../../../firebase";
 // assets
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { createUserWithEmailAndPassword  ,updateProfile} from "firebase/auth";
-import { auth } from "../../../firebase";
+import { RootState } from "../../../redux/store";
+import Google from '../../../assets/images/icons/social-google.svg';
+
+// controler
+import {  setDocController } from "../../../controllers/common";
+import { Wallet } from "../../../types";
+
 // ===========================|| FIREBASE - REGISTER ||=========================== //
+
+interface InitValueRegister{
+  name: string
+  email: string
+  password: string
+  submit: null
+}
 
 const FirebaseRegister = ({ ...others }) => {
   const theme: any = useTheme();
-
   const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
-  const customization = useSelector((state: any) => state.custom);
-  const [showPassword, setShowPassword] = useState(false);
-  // const [checked, setChecked] = useState(true);
+  const customization = useSelector((state: RootState) => state.custom);
 
+  const [showPassword, setShowPassword] = useState(false);
   const [strength, setStrength] = useState(0);
   const [level, setLevel] = useState<any>();
 
   // const navigation = useNavigate()
+  const initializeValue :  InitValueRegister = {name: "",email: "",password: "",submit: null}
 
   const googleHandler = async () => {
     console.error("Register");
@@ -70,15 +84,21 @@ const FirebaseRegister = ({ ...others }) => {
     changePassword("");
   }, []);
 
+  const handleRegisterUser = async (values :InitValueRegister)=> {
+    try {
+      const { user } =  await createUserWithEmailAndPassword(auth, values.email, values.password)
+      await updateProfile(user,{ displayName:values.name})
+      //initialization a wallet defaul , id equal uid
+      await setDocController<Wallet>('wallet',{ uid:user.uid,total : 0,cash:0,saving:0} , user.uid)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
   return (
     <>
       <Formik
-        initialValues={{
-          name: "",
-          email: "",
-          password: "",
-          submit: null,
-        }}
+        initialValues={initializeValue}
         validationSchema={Yup.object().shape({
           email: Yup.string()
             .email("Must be a valid email")
@@ -89,10 +109,8 @@ const FirebaseRegister = ({ ...others }) => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-        
-             const user =  await (await createUserWithEmailAndPassword(auth, values.email, values.password)).user
-             await updateProfile(user,{ displayName:values.name})
-              // navigation('/login')
+            
+              await  handleRegisterUser(values)
               setStatus({ success: true });
               setSubmitting(false);
            
@@ -100,7 +118,6 @@ const FirebaseRegister = ({ ...others }) => {
               setStatus({ success: false });
               setErrors({ submit: err.message });
               setSubmitting(false);
-            
           }
         }}
       >

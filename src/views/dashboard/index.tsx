@@ -7,10 +7,10 @@ import { Grid } from '@mui/material';
 import SpendingCard from './SpendingCard';
 import PopularCard from './PopularCard';
 import TotalOrderLineChartCard from './TotalOrderLineChartCard';
-import TotalIncomeDarkCard from './TotalIncomeDarkCard';
-import TotalIncomeLightCard from './TotalIncomeLightCard';
-import TotalGrowthBarChart from './TotalGrowthBarChart';
-import { gridSpacing } from '../../../constans/constant';
+import WalletCard from './WalletCard';
+import { gridSpacing } from '../../constans/constant';
+import TimeCard from './TimeCard';
+import ToolDarkCard from './ToolDarkCard';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -33,10 +33,10 @@ const Dashboard = () => {
                     <Grid item lg={4} md={12} sm={12} xs={12}>
                         <Grid container spacing={gridSpacing}>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <TotalIncomeLightCard isLoading={isLoading} />
+                                <TimeCard isLoading={isLoading}/>
                             </Grid>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <TotalIncomeDarkCard isLoading={isLoading} />
+                                <WalletCard isLoading={isLoading} />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -48,7 +48,7 @@ const Dashboard = () => {
                         <PopularCard isLoading={isLoading} />
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        {/* <TotalGrowthBarChart isLoading={isLoading} /> */}
+                         <ToolDarkCard  isLoading={isLoading}/>
                     </Grid>
                 </Grid>
             </Grid>

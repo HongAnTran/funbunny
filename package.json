@@ -24,12 +24,15 @@
     "i18next": "^22.4.3",
     "i18next-http-backend": "^2.1.0",
     "material-ui-popup-state": "^4.1.0",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.40",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-currency-format": "^1.1.0",
     "react-device-detect": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.1.1",
+    "react-moment": "^1.1.2",
     "react-perfect-scrollbar": "^1.5.8",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.4",
@@ -64,5 +67,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-currency-format": "^1.0.0"
   }
 }

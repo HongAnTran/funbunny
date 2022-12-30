@@ -3,13 +3,20 @@
         "dashboard":"Bảng điều khiển",
         "analytics":"Phân tích",
         "tasks":"Công việc",
-        "insights":"Bản đồ"
-
+        "insights":"Insights"
     },
     "card":{
         "total_spending":"Tổng chi tiêu",
-        "total_income":"Tông thu nhập"
+        "total_income":"Tổng thu nhập"
         
+    }
+    ,
+    "common":{
+        "edit":"chỉnh sửa",
+        "add":"thêm",
+        "wallet":"ví",
+        "view":"xem"
+
     }
 }
   

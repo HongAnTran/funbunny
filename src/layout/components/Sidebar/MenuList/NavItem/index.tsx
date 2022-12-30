@@ -1,5 +1,5 @@
 import { forwardRef, useEffect } from "react";
-import { Link  , NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // material-ui
@@ -14,9 +14,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-// project imports
-// import { MENU_OPEN, SET_MENU } from '../../../../../constans';
-
 // assets
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { setMenuOpen , setMenu  } from '../../../../../redux/slices/customSlice/customSlice'
@@ -30,7 +27,7 @@ const NavItem = ({ item, level }: { item:  MenuItemChildren; level: number }) =>
   const theme: any = useTheme();
   const dispatch = useDispatch();
   const customization = useSelector((state: RootState) => state.custom);
-  const { t }  = useTranslation()
+  const { t }  = useTranslation('translation', { keyPrefix: 'navbar' })
 
   
   const matchesSM = useMediaQuery(theme.breakpoints.down("lg"));
@@ -75,7 +72,6 @@ const NavItem = ({ item, level }: { item:  MenuItemChildren; level: number }) =>
       .toString()
       .split("/")
       .findIndex((id) => id === item.id);
-      console.log(currentIndex);
     if (currentIndex > -1) {
       dispatch(setMenuOpen(item.id));
     }
@@ -119,7 +115,7 @@ const NavItem = ({ item, level }: { item:  MenuItemChildren; level: number }) =>
             }
             color="inherit"
           >
-            {t(`navbar.${item.title}`)}
+            { t(item.title)}
           </Typography>
         }
         secondary={
@@ -145,12 +141,6 @@ const NavItem = ({ item, level }: { item:  MenuItemChildren; level: number }) =>
         />
       )}
     </ListItemButton>
-    {/* <Divider sx={{
-      mt:1,
-      mb:1
-
-
-    }} /> */}
     </>
   );
 };

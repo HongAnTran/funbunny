@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { forwardRef, ReactNode } from 'react';
 // third-party
 import { motion, useCycle  } from 'framer-motion';
@@ -82,7 +81,7 @@ const AnimateButton = forwardRef(({ children, type = 'scale', direction ='right'
                 };
             }
             return (
-                <motion.div ref={ref} whileHover={{ scale: scale?.hover }} whileTap={{ scale: scale?.tap }}>
+                <motion.div  ref={ref} whileHover={{ scale: scale?.hover }} whileTap={{ scale: scale?.tap }}>
                     {children}
                 </motion.div>
             );

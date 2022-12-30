@@ -8,7 +8,14 @@
     "card":{
         "total_spending":"Total Spending",
         "total_income":"Total Income"
-        
+    },
+    "common":{
+        "edit":"edit",
+        "add":"add",
+        "wallet":"wallet",
+        "view":"view"
+
     }
+
 }
   
