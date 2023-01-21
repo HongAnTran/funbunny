@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -31,7 +31,7 @@ import {
 
 // firebase
 import { createUserWithEmailAndPassword  ,updateProfile} from "firebase/auth";
-import { auth } from "../../../firebase";
+import { auth } from "../../../firebaseConfig";
 // assets
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -40,7 +40,8 @@ import Google from '../../../assets/images/icons/social-google.svg';
 
 // controler
 import {  setDocController } from "../../../controllers/common";
-import { Wallet } from "../../../types";
+import { Wallet } from "../../../types/main";
+import { registerWithGoogleFirebase } from "controllers/authen";
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
@@ -57,14 +58,15 @@ const FirebaseRegister = ({ ...others }) => {
   const customization = useSelector((state: RootState) => state.custom);
 
   const [showPassword, setShowPassword] = useState(false);
-  const [strength, setStrength] = useState(0);
-  const [level, setLevel] = useState<any>();
+  const [strength, setStrength] = useState<number>(0);
+  const [level, setLevel] = useState<{label: string ; color: string}>({label:'Poor' ,color:'#f44336'});
 
   // const navigation = useNavigate()
   const initializeValue :  InitValueRegister = {name: "",email: "",password: "",submit: null}
 
   const googleHandler = async () => {
-    console.error("Register");
+    await registerWithGoogleFirebase()
+
   };
 
   const handleClickShowPassword = () => {
@@ -76,22 +78,23 @@ const FirebaseRegister = ({ ...others }) => {
   };
 
   const changePassword = (value: any) => {
-    const temp: any = strengthIndicator(value);
+    const temp = strengthIndicator(value);
     setStrength(temp);
     setLevel(strengthColor(temp));
   };
-  useEffect(() => {
-    changePassword("");
-  }, []);
+
 
   const handleRegisterUser = async (values :InitValueRegister)=> {
     try {
       const { user } =  await createUserWithEmailAndPassword(auth, values.email, values.password)
       await updateProfile(user,{ displayName:values.name})
+ 
       //initialization a wallet defaul , id equal uid
       await setDocController<Wallet>('wallet',{ uid:user.uid,total : 0,cash:0,saving:0} , user.uid)
-    } catch (error) {
-      alert(error)
+      
+    } catch (error : any) {
+        console.error(error.code)
+        throw new Error(error)
     }
   }
 

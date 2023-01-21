@@ -1,6 +1,6 @@
-import { collection, addDoc ,updateDoc , doc ,setDoc ,serverTimestamp } from "firebase/firestore"; 
-import { db } from "../../firebase";
-import type { Collections } from '../../types'
+import { collection, addDoc ,updateDoc , doc ,setDoc ,serverTimestamp ,getDoc } from "firebase/firestore"; 
+import { db } from "../../firebaseConfig";
+import type { Collections } from '../../types/main'
 export const addDocController  = async <T extends { [x: string]: any}>(collectionName: Collections , value:T ) :Promise<string | null > =>{
     let idDoc : string | null = null;
     try {
@@ -9,12 +9,26 @@ export const addDocController  = async <T extends { [x: string]: any}>(collectio
           timestamp: serverTimestamp()
         });
         idDoc = docRef.id
-      } catch (e) {
-        alert(e);
+      } catch (e : any) {
+        throw new Error(e);
+        
       }     
       return idDoc
 }
 
+export const getDocController  = async (collectionName: Collections , id: string ) :Promise<any> =>{
+  let data = null
+  try {
+    const docRef = doc(db, collectionName, id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        data = docSnap.data();
+    }
+    } catch (e : any) {
+
+    }     
+    return data
+}
 export const updateDocController = async <T extends { [x: string]: any }>(collectionName: Collections , value:T , id : string):Promise<void> =>{
   try {
     const docRef = doc(db, collectionName, id);
@@ -22,8 +36,8 @@ export const updateDocController = async <T extends { [x: string]: any }>(collec
       ...value,
       timestamp: serverTimestamp()
     });
-    } catch (e) {
-      alert( e);
+    } catch (e : any) {
+      throw new Error(e);
     }
 }
 
@@ -34,7 +48,7 @@ export const setDocController = async <T extends { [x: string]: any}>(collection
       ...value,
       timestamp: serverTimestamp()
     });
-    } catch (e) {
-      alert(e);
+    } catch (e : any) {
+      throw new Error(e);
     }
 }

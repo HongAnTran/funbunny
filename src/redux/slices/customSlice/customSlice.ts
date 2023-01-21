@@ -1,19 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { PaletteMode } from '@mui/material' 
-
-
 import  config from '../../../config'
 import  { KEY_MODE_CONFIG  } from '../../../constans/constant'
-export interface CustomState {
-    isOpen :string[];
-    fontFamily:`'Roboto', sans-serif` | `'Poppins', sans-serif` | `'Inter', sans-serif`;
-    borderRadius:number;
-    opened:boolean;
-    mode:PaletteMode  | string;
-    lang:'en'| 'vi' | string
-
-}
+import { CustomState } from '../../../types/config'
 
  const initialState:CustomState = {
     isOpen: [], // for active default menu

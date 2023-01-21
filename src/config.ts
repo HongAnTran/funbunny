@@ -1,7 +1,7 @@
 
 
 import  { KEY_MODE_CONFIG   , KEY_LANG_CONFIG } from './constans/constant'
-import { Config, Languages } from './types/config/config'
+import { Config, Languages } from './types/config'
 
 export const listLanguages :Languages[]  = [
     {

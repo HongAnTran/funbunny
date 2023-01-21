@@ -1,6 +1,7 @@
 // assets
 import { IconDashboard  } from '@tabler/icons';
-import type { MenuItemChildren } from './index'
+import { MenuItemChildren } from 'types/menuitem';
+
 // constant
 const icons = { IconDashboard };
 

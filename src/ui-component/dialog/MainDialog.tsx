@@ -1,21 +1,27 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
 
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import { Slide ,Dialog ,DialogContent ,AppBar ,Toolbar ,IconButton ,Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { TransitionProps } from '@mui/material/transitions';
 interface MainDialogProps {
   open: boolean;
   setOpen: any;
   title?: string;
   children?: React.ReactNode;
   onClose?: boolean;
+  fullScreen? : boolean;
 }
+
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function MainDialog({
   open,
@@ -23,6 +29,7 @@ export default function MainDialog({
   title,
   children,
   onClose = true,
+  fullScreen = false,
 }: MainDialogProps) {
   const theme: any = useTheme();
 
@@ -38,7 +45,12 @@ export default function MainDialog({
 
   return (
     <div>
-      <Dialog open={open} onClose={handleOnClose}>
+      <Dialog open={open} onClose={handleOnClose} 
+       TransitionComponent={Transition}
+       fullScreen={fullScreen}
+      //  maxWidth="lg"
+      //  fullWidth={true}
+      >
         <AppBar
           elevation={0}
           sx={{
@@ -65,7 +77,9 @@ export default function MainDialog({
           </Toolbar>
         </AppBar>
 
-        <DialogContent>{children}</DialogContent>
+        <DialogContent>
+          {children}
+          </DialogContent>
       </Dialog>
     </div>
   );

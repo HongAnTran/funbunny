@@ -12,13 +12,13 @@ const MenuList = () => {
         switch (item.type) {
             case 'item':
                 return (
-                    <>
-                    <div style={{marginBottom:12}} key={item.id}>
+                 
+                    <div style={{marginBottom:12}} key={item.id} >
 
                     <NavItem  level={1} item={item} />
                     </div>
                  
-                    </>
+                 
                 )
             case 'collapse':
                 return <NavCollapse key={item.id} menu={item} level={1}/>;

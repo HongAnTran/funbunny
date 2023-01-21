@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { auth } from '../../../../firebase';
+import { auth } from '../../../../firebaseConfig';
 import {  signOut } from "firebase/auth";
 // material-ui
 import { useTheme } from '@mui/material/styles';

@@ -2,12 +2,12 @@
 import React from "react";
 import { useTheme, styled } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
-import { Wallet } from "../../types";
+import { Wallet } from "../../../types/main";
 
-import { useAuthContext  , useGetDoc } from "../../hooks";
+import { useAuthContext  ,  useGetDocRealTime,  } from "../../../hooks";
 
-import TotalIncomeCard from "../../ui-component/cards/Skeleton/TotalIncomeCard";
-import PriceFormat from "../../ui-component/extended/PriceFormat";
+import TotalIncomeCard from "../../../ui-component/cards/Skeleton/TotalIncomeCard";
+import PriceFormat from "ui-component/extended/PriceFormat";
 
 
 import {
@@ -23,13 +23,16 @@ import {
   ListItemIcon,
 } from "@mui/material";
 // project imports
-import MainCard from "../../ui-component/cards/MainCard";
+import MainCard from "../../../ui-component/cards/MainCard";
 
 import WalletIcon from "@mui/icons-material/Wallet";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import IconButton from "@mui/material/IconButton";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import MainDialog from "../../../ui-component/dialog/MainDialog";
+import ViewWallet from "./ViewWallet";
+import EditWallet from "./EditWallet";
 
 
 
@@ -66,18 +69,30 @@ const CardWrapper = styled(MainCard)(({ theme }: { theme: any }) => ({
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
 const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
+  // hooks
   const { user } = useAuthContext()
-  const [ walletvalue ]  = useGetDoc<Wallet>('wallet',user.uid , { 
+  const { t } = useTranslation("translation", { keyPrefix: "common" });
+  const theme: any = useTheme();
+
+  // get wallet from server
+  const [ walletvalue ]  = useGetDocRealTime<Wallet>('wallet',user.uid , { 
     total : 0,
     saving : 0,
     cash : 0,
     uid: user.uid,  
   })
-  const { t } = useTranslation("translation", { keyPrefix: "common" });
-  const theme: any = useTheme();
+
+  
+
+  
 
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [openView, setOpenView] = React.useState<boolean>(false);
+  const [openEdit, setOpenEdit] = React.useState<boolean>(false);
+
+
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -93,6 +108,7 @@ const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
       {isLoading ? (
         <TotalIncomeCard />
       ) : (
+        <>
         <CardWrapper border={false} content={false}>
           <Box sx={{ p: 3 }}>
             <Stack direction="row" spacing={1} justifyContent="space-between">
@@ -159,13 +175,13 @@ const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={()=>{setOpenView(true)}}>
                   <ListItemIcon>
                     <VisibilityIcon fontSize="small" />
                   </ListItemIcon>
                   <ListItemText>{t("view")}</ListItemText>
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={()=>{setOpenEdit(true)}}>
                   <ListItemIcon>
                     <EditIcon fontSize="small" />
                   </ListItemIcon>
@@ -175,7 +191,18 @@ const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
             </Stack>
           </Box>
         </CardWrapper>
+
+            <MainDialog open={openView} setOpen={setOpenView}  title="View Wallet" >
+                <ViewWallet data={walletvalue}/>
+             </MainDialog>    
+
+             <MainDialog open={openEdit} setOpen={setOpenEdit}  title="Edit Wallet" >
+                <EditWallet data={walletvalue}/>
+             </MainDialog>    
+        </>
       )}
+
+
     </>
   );
 };

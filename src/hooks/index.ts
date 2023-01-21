@@ -1,4 +1,5 @@
 import useGetDoc from "./usegetDoc";
 import useAuthContext from "./useAuthContext";
-
-export { useGetDoc, useAuthContext }
+import useRedux from "./useRedux";
+import useGetDocRealTime from "./useGetDocRealTime";
+export { useGetDoc, useAuthContext  , useRedux , useGetDocRealTime}

@@ -1,7 +1,8 @@
 // assets
 import { IconDeviceAnalytics} from '@tabler/icons';
-import type { MenuItemChildren } from './index'
-// constant
+import { MenuItemChildren } from 'types/menuitem';
+
+
 const icons = { IconDeviceAnalytics};
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //

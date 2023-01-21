@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Collections } from '../types';
-import { db } from '../firebase';
+import { Collections } from '../types/main';
+import { db } from '../firebaseConfig';
 import { doc, getDoc } from "firebase/firestore";
 // ==============================|| ELEMENT REFERENCE HOOKS  ||============================== //
 
-const useGetDoc  =<T,>  (collection : Collections, id : string , initialdata : T):[T ,boolean , boolean] => {
+const useGetDoc  =<T,>  (collection : Collections, id : string , initialdata : T ):[T ,boolean , boolean] => {
     const [ data, setData ] =  useState<T>(initialdata)
     const [isLoading , setIsLoading] = useState<boolean>(false)
     const [isError , setIsError] = useState<boolean>(false)

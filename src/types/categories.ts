@@ -1,4 +1,4 @@
-import { Category } from ".";
+import { Category } from "./main";
 
 
 // export const expenseCategory: Category[] = [

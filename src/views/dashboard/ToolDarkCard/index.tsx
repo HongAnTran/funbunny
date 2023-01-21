@@ -79,7 +79,7 @@ const ToolDarkCard = ({ isLoading }: { isLoading: boolean }) => {
                     },
                   }}
                 >
-                  <Paper variant="outlined" elevation={3}>
+                  <Paper variant="outlined" > 
                      <AddTransaction />
                   </Paper>
                 </Box>

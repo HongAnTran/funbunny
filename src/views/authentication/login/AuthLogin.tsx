@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {  signInWithEmailAndPassword  } from "firebase/auth";
-import { auth  } from '../../../firebase'
+import { auth  } from 'firebaseConfig'
 // material-ui
+
 import { useTheme } from '@mui/material/styles';
 import {
     Box,
@@ -27,14 +28,15 @@ import {
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-import AnimateButton from '../../../ui-component/extended/AnimateButton';
+import AnimateButton from 'ui-component/extended/AnimateButton';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
-import Google from '../../../assets/images/icons/social-google.svg';
+import Google from 'assets/images/icons/social-google.svg';
+import { registerWithGoogleFirebase } from 'controllers/authen';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -45,8 +47,8 @@ const FirebaseLogin = ({ ...others }) => {
     const [checked, setChecked] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
 
-    const googleHandler = async () => {
-        console.error('Login');
+    const googleHandler = async () => {     
+        await registerWithGoogleFirebase()
     };
 
     const handleClickShowPassword = () => {

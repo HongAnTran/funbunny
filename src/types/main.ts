@@ -1,10 +1,12 @@
-import { FieldValue } from "firebase/firestore"
+import type { FieldValue } from "firebase/firestore"
 
 type TypeTransaction = 'spending' | 'income'
 type TypeWallet = 'cash' | 'saving' 
 type Collections = 'users' | 'transactions'| 'categorys' | 'wallet' 
  
  
+
+
  interface User{
     uid : string
     email:string | null
@@ -44,4 +46,11 @@ interface Wallet{
   timestamp? : FieldValue
 }
 
-export type { User,Transaction , Wallet ,Category ,TypeTransaction, TypeWallet ,Collections }
+interface FinaceSlice{
+  wallet : Wallet
+  transactions: Transaction[]
+  income : number
+  spending : number
+}
+
+export type { User,Transaction , Wallet ,Category ,TypeTransaction, TypeWallet ,Collections ,FinaceSlice}
