@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // material-ui
@@ -13,6 +13,10 @@ import Chart from 'react-apexcharts';
 import chartData from './chart-data/bajaj-area-chart';
 
 import type { RootState } from '../../redux/store';
+import useGetDocs from 'hooks/usegGetDocs';
+import { Transaction } from 'types/main';
+import { caculateTotalValueTransactions } from 'controllers/transaction/transaction';
+import React from 'react';
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
 const BajajAreaChartCard = () => {

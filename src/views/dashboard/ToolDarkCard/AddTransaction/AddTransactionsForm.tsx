@@ -12,7 +12,7 @@ import {
     CircularProgress 
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import AnimateButton from '../../../../ui-component/extended/AnimateButton';
+import AnimateButton from 'ui-component/extended/AnimateButton';
 function AddTransactionsForm() {
     const theme : any= useTheme();
 

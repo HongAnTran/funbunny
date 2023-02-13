@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { TransitionProps } from '@mui/material/transitions';
 interface MainDialogProps {
   open: boolean;
-  setOpen: any;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   title?: string;
   children?: React.ReactNode;
   onClose?: boolean;

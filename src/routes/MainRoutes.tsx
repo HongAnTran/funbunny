@@ -11,6 +11,11 @@ const DashboardDefault = Loadable(
   lazy(() => import("../views/dashboard"))
 );
 
+const AddTransaction  = Loadable(
+  lazy(() => import("../views/addTransastion"))
+);
+
+
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -28,6 +33,10 @@ const MainRoutes: RouteObject = {
     {
       path: "dashboard",
       element: <DashboardDefault />,
+    },
+    {
+      path: "add-transastion",
+      element: <AddTransaction />,
     },
   ],
 };

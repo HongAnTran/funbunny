@@ -23,9 +23,10 @@ export const getDocController  = async (collectionName: Collections , id: string
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
         data = docSnap.data();
+        data._id = docSnap.id;
     }
     } catch (e : any) {
-
+      throw new Error(e)
     }     
     return data
 }
@@ -51,4 +52,12 @@ export const setDocController = async <T extends { [x: string]: any}>(collection
     } catch (e : any) {
       throw new Error(e);
     }
+}
+
+export function convertPriceStringToNumber(priceString: string | number): number {
+  if (typeof priceString === "number") {
+    return priceString;
+  }
+  const data = Number(priceString.trim().replaceAll(",", ""));
+  return data;
 }

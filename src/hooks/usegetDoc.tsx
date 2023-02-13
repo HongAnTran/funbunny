@@ -25,7 +25,7 @@ const useGetDoc  =<T,>  (collection : Collections, id : string , initialdata : T
             alert(error)
         }
         finally{
-            setIsLoading(true);
+            setIsLoading(false);
         }
        })()
     },[collection , id])

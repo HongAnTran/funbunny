@@ -24,7 +24,6 @@ function AuthContext({children} : { children: ReactNode}) {
            setIsLoading(true);
             if (user) {
               const { displayName , email , photoURL , phoneNumber  , uid} = user
-              console.log('user' , user);
               setUser({ displayName , email , photoURL , phoneNumber  , uid})
               setIsAuth(true);
             } else {

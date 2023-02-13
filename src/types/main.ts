@@ -1,4 +1,5 @@
-import type { FieldValue } from "firebase/firestore"
+import type { Timestamp, WhereFilterOp ,OrderByDirection} from "firebase/firestore"
+
 
 type TypeTransaction = 'spending' | 'income'
 type TypeWallet = 'cash' | 'saving' 
@@ -8,6 +9,7 @@ type Collections = 'users' | 'transactions'| 'categorys' | 'wallet'
 
 
  interface User{
+  _id?: string
     uid : string
     email:string | null
     displayName:string | null
@@ -16,34 +18,44 @@ type Collections = 'users' | 'transactions'| 'categorys' | 'wallet'
 }
 
 interface Wallet{
+  _id?: string
   uid:string
   total : number
   cash:number
   saving:number
-  timestamp? : FieldValue
+  timestamp? : Timestamp
 }
 
  interface Transaction{
-  id?: string
+  _id?: string
   uid:string
   value :number
   typeTransaction : TypeTransaction
   idCategory : string
   wallet : TypeWallet
-  date : Date
   note : string
   imageDescription : string
-  timestamp? : FieldValue
+  timestamp? : Timestamp
+  date :DateTransaction
+  // [x : string ] : any
+  // category?:Category
+}
 
+interface DateTransaction  {
+  day: number,
+  month: number,
+  year: number,
+  time:number,
+  date:Date
 }
 
 
  interface Category{
-  id?:string  
-  name:string
-  icon:string
-  typeTransaction : TypeTransaction
-  timestamp? : FieldValue
+    id: string
+    name:string
+    icon:string
+    typeTransaction : TypeTransaction
+  timestamp? : Timestamp
 }
 
 interface FinaceSlice{
@@ -52,5 +64,16 @@ interface FinaceSlice{
   income : number
   spending : number
 }
+interface Condition<T >  {
+  fieldname : keyof T  | string,
+  operation : WhereFilterOp,
+  value :  any
+  
+}
 
-export type { User,Transaction , Wallet ,Category ,TypeTransaction, TypeWallet ,Collections ,FinaceSlice}
+interface Order {
+  fieldName : string;
+  type : OrderByDirection 
+}
+
+export type { User,Transaction , Wallet ,Category ,TypeTransaction, TypeWallet ,Collections ,FinaceSlice , Condition ,Order}

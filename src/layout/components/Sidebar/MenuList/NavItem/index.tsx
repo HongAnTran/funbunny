@@ -16,12 +16,13 @@ import {
 
 // assets
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { setMenuOpen , setMenu  } from '../../../../../redux/slices/customSlice/customSlice'
+import { setMenuOpen , setMenu  } from 'redux/slices/customSlice/customSlice'
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
-import type { RootState } from "../../../../../redux/store";
-import type {  MenuItemChildren } from '../../../../../menu-items'
+import type { RootState } from "redux/store";
+// import type {  MenuItemChildren } from '../../../../../menu-items'
 import { useTranslation} from 'react-i18next';
 import config from "../../../../../config";
+import { MenuItemChildren } from "types/menuitem";
 
 const NavItem = ({ item, level }: { item:  MenuItemChildren; level: number }) => {
   const theme: any = useTheme();

@@ -15,8 +15,9 @@ import { IconChevronDown, IconChevronUp } from '@tabler/icons';
 import type { RootState } from "../../../../../redux/store";
 
 // ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
-import type {  MenuItemChildren } from '../../../../../menu-items'
+// import type {  MenuItemChildren } from '../../../../../menu-items'
 import { useTranslation} from 'react-i18next';
+import { MenuItemChildren } from 'types/menuitem';
 
 const NavCollapse = ({ menu, level }: { menu :MenuItemChildren ; level : number }) => {
     const { t }  = useTranslation()

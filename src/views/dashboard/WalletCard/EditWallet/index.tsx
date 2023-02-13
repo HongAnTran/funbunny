@@ -1,5 +1,5 @@
 import React from "react";
-import { Wallet } from "../../../../types/main";
+import { Transaction, Wallet } from "types/main";
 import * as Yup from "yup";
 import { Formik } from "formik";
 
@@ -13,55 +13,85 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import AnimateButton from "../../../../ui-component/extended/AnimateButton";
-import PriceFormat from "../../../../ui-component/extended/PriceFormat";
-import { updateDocController } from "../../../../controllers/common";
+import AnimateButton from "ui-component/extended/AnimateButton";
+import PriceFormat from "ui-component/extended/PriceFormat";
+import { convertPriceStringToNumber } from "controllers/common";
+import { addTransactionController } from "controllers/transaction/transaction";
+import { useAuthContext } from "hooks";
 
-function EditWallet({ data }: { data: Wallet }) {
+function EditWallet({ data , setOpen }: { data: Wallet ,setOpen : React.Dispatch<React.SetStateAction<boolean>> }) {
   const theme: any = useTheme();
-
-  function convertPriceStringToNumber(priceString: string  | number) : number{
-    if ( typeof priceString === "number"){
-      return priceString
-    }
-
-      priceString.trim().replaceAll(',','')
-      return Number(priceString)
-  }
-  
-  const updateWalletController = (value: Wallet) =>{
-
-      const cash = convertPriceStringToNumber(value.cash)
-      const saving = convertPriceStringToNumber(value.saving)
-
-      const total = cash + saving
-
-      const dataUpdate : Wallet = {
-        ...value,
-        cash , 
-        saving,
-        total,
-      }
-      updateDocController("wallet",dataUpdate,dataUpdate.uid)
-  }
-
+  const { user } =  useAuthContext()
   return (
     <div>
       <Formik
         initialValues={data}
         validationSchema={Yup.object().shape({
             cash: Yup.string().required('Vui lòng nhập trường này').max(100),
-           
+            saving: Yup.string().required('Vui lòng nhập trường này').max(100),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-           
-            updateWalletController(values)
+            const cash = convertPriceStringToNumber(values.cash)
+            const saving = convertPriceStringToNumber(values.saving)
+            if(cash !== data.cash){
+              let dataTran : Transaction = {
+                uid:user.uid,
+                value :cash - data.cash,
+                typeTransaction : 'income',
+                idCategory :"thu-nhap-khac",
+                wallet : 'cash',
+                note : 'Chỉnh sửa ví',
+                imageDescription : '',               
+                date :{
+                  date : new Date(),
+                  day : new Date().getDate(),
+                  year : new Date().getFullYear(),
+                  month : new Date().getMonth() + 1,
+                  time : new Date().getTime()
+                }
+              }
+  
+           if ( cash < data.cash){
+                dataTran.typeTransaction = 'spending'
+                 dataTran.idCategory = "chi-phi-khac"
+                dataTran.value  = data.cash - cash
+
+             }
+             await addTransactionController(dataTran)
+            }
+
+            if(saving !== data.saving){
+              let dataTran : Transaction = {
+                uid:user.uid,
+                value :saving - data.saving,
+                typeTransaction : 'income',
+                idCategory :"thu-nhap-khac",
+                wallet : 'saving',
+                note : 'Chỉnh sửa ví',
+                imageDescription : '',               
+                date :{
+                  date : new Date(),
+                  day : new Date().getDate(),
+                  year : new Date().getFullYear(),
+                  month : new Date().getMonth() + 1,
+                  time : new Date().getTime()
+                }
+              }
+  
+           if ( saving < data.saving){
+                dataTran.typeTransaction = 'spending'
+                dataTran.idCategory = "chi-phi-khac"
+                dataTran.value  = data.saving- saving
+             }
+            await  addTransactionController(dataTran)
+            }
+    
+            setOpen(false)
             setStatus({ success: true });
             setSubmitting(false);
           } catch (err: any) {
             setStatus({ success: false });
-            // setErrors({ submit: err });
             setSubmitting(false);
           }
         }}
@@ -137,13 +167,6 @@ function EditWallet({ data }: { data: Wallet }) {
                 </FormHelperText>
               )}
             </FormControl>
-        
-            {/* {errors.submit && (
-              <Box sx={{ mt: 3 }}>
-                <FormHelperText error>{errors.submit}</FormHelperText>
-              </Box>
-            )} */}
-
             <Box sx={{ mt: 2 }}>
               <AnimateButton>
                 <Button

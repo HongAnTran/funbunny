@@ -5,7 +5,7 @@ import { Grid } from '@mui/material';
 
 // project imports
 import SpendingCard from './SpendingCard';
-import PopularCard from './PopularCard';
+import TransactionsViewCard from './TransactionsViewCard';
 import TotalOrderLineChartCard from './TotalOrderLineChartCard';
 import WalletCard from './WalletCard';
 import { gridSpacing } from '../../constans/constant';
@@ -45,7 +45,7 @@ const Dashboard = () => {
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12} md={8}>
-                        <PopularCard isLoading={isLoading} />
+                        <TransactionsViewCard />
                     </Grid>
                     <Grid item xs={12} md={4}>
                          <ToolDarkCard  isLoading={isLoading}/>

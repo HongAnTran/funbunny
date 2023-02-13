@@ -1,4 +1,4 @@
-import useGetDoc from "./usegetDoc";
+import useGetDoc from "./useGetDoc";
 import useAuthContext from "./useAuthContext";
 import useRedux from "./useRedux";
 import useGetDocRealTime from "./useGetDocRealTime";

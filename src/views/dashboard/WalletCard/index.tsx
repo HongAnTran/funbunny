@@ -4,7 +4,7 @@ import { useTheme, styled } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { Wallet } from "../../../types/main";
 
-import { useAuthContext  ,  useGetDocRealTime,  } from "../../../hooks";
+import { useAuthContext  ,  useGetDoc, useGetDocRealTime,   } from "../../../hooks";
 
 import TotalIncomeCard from "../../../ui-component/cards/Skeleton/TotalIncomeCard";
 import PriceFormat from "ui-component/extended/PriceFormat";
@@ -73,7 +73,6 @@ const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
   const { user } = useAuthContext()
   const { t } = useTranslation("translation", { keyPrefix: "common" });
   const theme: any = useTheme();
-
   // get wallet from server
   const [ walletvalue ]  = useGetDocRealTime<Wallet>('wallet',user.uid , { 
     total : 0,
@@ -82,16 +81,9 @@ const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
     uid: user.uid,  
   })
 
-  
-
-  
-
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [openView, setOpenView] = React.useState<boolean>(false);
   const [openEdit, setOpenEdit] = React.useState<boolean>(false);
-
-
 
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -193,11 +185,11 @@ const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
         </CardWrapper>
 
             <MainDialog open={openView} setOpen={setOpenView}  title="View Wallet" >
-                <ViewWallet data={walletvalue}/>
+                <ViewWallet data={walletvalue} />
              </MainDialog>    
 
              <MainDialog open={openEdit} setOpen={setOpenEdit}  title="Edit Wallet" >
-                <EditWallet data={walletvalue}/>
+                <EditWallet data={walletvalue} setOpen={setOpenEdit}/>
              </MainDialog>    
         </>
       )}
