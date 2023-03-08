@@ -30,7 +30,12 @@ const ModeSection = () => {
     return (
         <>
             <Box
-             
+               sx={{
+                mr: 2,
+                [theme.breakpoints.down('md')]: {
+                    mr: 2
+                }
+            }}
             >
                 <ButtonBase sx={{ borderRadius: '12px' }}>
                     <Avatar

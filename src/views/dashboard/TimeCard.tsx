@@ -60,8 +60,8 @@ const TimeCard = ({ isLoading }: { isLoading: boolean }) => {
       {isLoading ? (
         <TotalIncomeCard />
       ) : (
-        <CardWrapper border={false} content={false}>
-          <Box sx={{ p: 3 }}>
+        <CardWrapper border={false} content={false} sx={{height:'100%'}}>
+          <Box sx={{ p: 3 ,height:'100%'}}>
             <Stack
               direction="row"
               spacing={1}
@@ -69,7 +69,7 @@ const TimeCard = ({ isLoading }: { isLoading: boolean }) => {
 
               justifyContent="space-between"
             >
-                <Button variant="contained" color="secondary" 
+                <Button variant="contained" color="primary" 
                     sx={{
             
                         cursor:"default"
@@ -88,6 +88,7 @@ const TimeCard = ({ isLoading }: { isLoading: boolean }) => {
                 color:theme.palette.primary.dark
              
             }}
+            textTransform="uppercase"
               >
                 {t('navbar.dashboard')}
               </Typography>

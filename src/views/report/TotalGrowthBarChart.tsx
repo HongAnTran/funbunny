@@ -18,26 +18,17 @@ import { gridSpacing } from '../../constans/constant';
 // chart data
 import chartData from './chart-data/total-growth-bar-chart';
 import type { RootState } from '../../redux/store';
+import PriceFormat from 'ui-component/extended/PriceFormat';
 
-const status = [
-    {
-        value: 'today',
-        label: 'Today'
-    },
-    {
-        value: 'month',
-        label: 'This Month'
-    },
-    {
-        value: 'year',
-        label: 'This Year'
-    }
-];
+
 
 // ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
 
-const TotalGrowthBarChart = ({ isLoading } : {isLoading: boolean}) => {
-    const [value, setValue] = useState<'today' | 'month' | 'year'>('today');
+const TotalGrowthBarChart = ({ isLoading  ,data} : {isLoading: boolean , data: {
+    labels : string[],
+    series :any[]
+  }}) => {
+  
     const theme : any = useTheme();
     const customization  = useSelector((state : RootState) => state.custom);
     
@@ -53,21 +44,31 @@ const TotalGrowthBarChart = ({ isLoading } : {isLoading: boolean}) => {
     const secondaryLight = theme.palette.secondary.light;
 
     useEffect(() => {
+    
         const newChartData = {
             ...chartData.options,
-            colors: [primary200, primaryDark, secondaryMain, secondaryLight],
+            colors: [ secondaryMain ,primaryDark],
             xaxis: {
-                labels: {
-                    style: {
-                        colors: [primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary]
-                    }
-                }
+                type: 'category',
+                categories: data.labels,
+                style: {
+                                colors: [primary]
+                            },
             },
             yaxis: {
                 labels: {
                     style: {
                         colors: [primary]
-                    }
+                    },
+
+                    formatter: function (value : number) {
+
+                        const numberFormat = new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                          });
+                        return numberFormat.format(value)
+                      }
                 }
             },
             grid: {
@@ -80,55 +81,44 @@ const TotalGrowthBarChart = ({ isLoading } : {isLoading: boolean}) => {
                 labels: {
                     colors: grey500
                 }
-            }
+            },
+            series: data.series
+            
         };
 
         // do not load chart when loading
         if (!isLoading) {
             ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
         }
-    }, [mode, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]);
+    }, [ data.labels , data.series ,mode, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]);
 
     return (
         <>
             {isLoading ? (
                 <SkeletonTotalGrowthBarChart />
             ) : (
-                <MainCard>
+                // <MainCard>
                     <Grid container spacing={gridSpacing}>
                         <Grid item xs={12}>
                             <Grid container alignItems="center" justifyContent="space-between">
                                 <Grid item>
                                     <Grid container direction="column" spacing={1}>
                                         <Grid item>
-                                            <Typography variant="subtitle2">Total Growth</Typography>
+                                            <Typography variant="h4">Khoản thu & Khoản chi </Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography variant="h3">$2,324.00</Typography>
+                                            <Typography variant="h5">Thu nhập ròng: <PriceFormat value={ data.series?.[1]?.data - data.series?.[0]?.data || 0 }  /></Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <TextField
-                                        id="standard-select-currency"
-                                        select
-                                        value={value}
-                                        onChange={(e :any) => setValue(e.target.value) }
-                                        >
-                                        {status.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                </Grid>
+                            
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
                             <Chart {...chartData} />
                         </Grid>
                     </Grid>
-                </MainCard>
+                // </MainCard>
             )}
         </>
     );

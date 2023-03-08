@@ -20,7 +20,6 @@ type Collections = 'users' | 'transactions'| 'categorys' | 'wallet'
 interface Wallet{
   _id?: string
   uid:string
-  total : number
   cash:number
   saving:number
   timestamp? : Timestamp

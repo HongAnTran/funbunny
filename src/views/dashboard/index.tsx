@@ -6,7 +6,7 @@ import { Grid } from '@mui/material';
 // project imports
 import SpendingCard from './SpendingCard';
 import TransactionsViewCard from './TransactionsViewCard';
-import TotalOrderLineChartCard from './TotalOrderLineChartCard';
+import IncomCard from './IncomCard';
 import WalletCard from './WalletCard';
 import { gridSpacing } from '../../constans/constant';
 import TimeCard from './TimeCard';
@@ -21,14 +21,14 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <Grid container spacing={gridSpacing}>
-            <Grid item xs={12}>
+        <div style={{height: '100%' , display: 'flex' , flexDirection: 'column'}}>
+            <Grid item xs={12} sx={{mb:3}}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <SpendingCard isLoading={isLoading} />
                     </Grid>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <TotalOrderLineChartCard isLoading={isLoading} />
+                        <IncomCard isLoading={isLoading} />
                     </Grid>
                     <Grid item lg={4} md={12} sm={12} xs={12}>
                         <Grid container spacing={gridSpacing}>
@@ -36,14 +36,14 @@ const Dashboard = () => {
                                 <TimeCard isLoading={isLoading}/>
                             </Grid>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <WalletCard isLoading={isLoading} />
+                                <WalletCard isLoadingBig={isLoading} />
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <Grid container spacing={gridSpacing}>
+            <Grid   item xs={12} style={{flex:1}}>
+                <Grid container spacing={gridSpacing} style={{height: '100%'}}>
                     <Grid item xs={12} md={8}>
                         <TransactionsViewCard />
                     </Grid>
@@ -52,7 +52,7 @@ const Dashboard = () => {
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </div>
     );
 };
 

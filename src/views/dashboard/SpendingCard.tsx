@@ -1,22 +1,19 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 // material-ui
 import { styled, useTheme } from "@mui/material/styles";
 import { Avatar, Box, Grid, Typography, Button } from "@mui/material";
-
 // project imports
-import MainCard from "../../ui-component/cards/MainCard";
-import SkeletonEarningCard from "../../ui-component/cards/Skeleton/EarningCard";
-
+import MainCard from "ui-component/cards/MainCard";
+import SkeletonEarningCard from "ui-component/cards/Skeleton/EarningCard";
 // assets
-import EarningIcon from "../../assets/images/icons/earning.svg";
+import EarningIcon from "assets/images/icons/earning.svg";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { useTranslation } from "react-i18next";
 import PriceFormat from "ui-component/extended/PriceFormat";
 import React from "react";
 import useGetDocs from "hooks/usegGetDocs";
 import { Transaction } from "types/main";
-import { set } from "immer/dist/internal";
 import { caculateTotalValueTransactions } from "controllers/transaction/transaction";
 import { calculateMillisecondDate } from "controllers/date";
 import DotLoading from "ui-component/extended/dotLoading/DotLoading";
@@ -110,9 +107,7 @@ const SpendingCard = ({ isLoading }: { isLoading?: boolean }) => {
   );
 
   React.useEffect(() => {
-    if (listTran.length > 0) {
       setValueTransaction(caculateTotalValueTransactions(listTran));
-    }
   }, [listTran]);
   return (
     <>
@@ -146,7 +141,9 @@ const SpendingCard = ({ isLoading }: { isLoading?: boolean }) => {
                         sx={{ color: "inherit" }}
                         onClick={(e) => handleChangeTime(e, true)}
                       >
-                        Hôm nay
+                        {t("card.today")}
+                                         
+
                       </Button>
                       <Button
                         disableElevation
@@ -155,7 +152,7 @@ const SpendingCard = ({ isLoading }: { isLoading?: boolean }) => {
                         sx={{ color: "inherit" }}
                         onClick={(e) => handleChangeTime(e, false)}
                       >
-                        Tháng này
+                        {t("card.this_month")}
                       </Button>
                     </Grid>
                   </Grid>

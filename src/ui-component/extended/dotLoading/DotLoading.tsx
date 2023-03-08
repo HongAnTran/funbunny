@@ -2,7 +2,7 @@ import React from 'react'
 import './style.css'
 function DotLoading( ) {
   return (
-    <div className="dot-elastic"></div>
+    <span className="dot-elastic"></span>
   )
 }
 

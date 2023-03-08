@@ -1,5 +1,5 @@
 import dashboard from './dashboard';
-import analytics from './analytics';
+import analytics from './report';
 import { MenuItems } from 'types/menuitem';
 
 

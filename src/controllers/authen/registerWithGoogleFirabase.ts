@@ -8,7 +8,7 @@ export default async function registerWithGoogleFirebase() : Promise<void> {
     const user =   await (await signInWithPopup(auth, provider)).user;
     const isCheckWallet =    await getDocController("wallet",user.uid)
     if(!isCheckWallet){
-        await setDocController<Wallet>('wallet',{ uid :user.uid,total : 0,cash:0,saving:0} , user.uid)
+        await setDocController<Wallet>('wallet',{ uid :user.uid,cash:0,saving:0} , user.uid)
     }
 
   } catch (error: any) {

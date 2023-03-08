@@ -1,9 +1,18 @@
 import { Transaction, Wallet } from "types/main";
 import { addDocController , updateDocController , getDocController } from "controllers/common";
+
+/**
+ * Hàm thêm 1 giao dịch
+ * 
+ * @param {object} transaction truyền vào giao dịch cần thêm
+ */
 async function addTransactionController(transaction: Transaction) {
     
     await addDocController<Transaction>("transactions", transaction);
+
+    // lấy ra ví của user
     const wallet : Wallet = await getDocController('wallet' , transaction.uid)
+    // xử lí nếu chọn ví tiền mặt
     if(transaction.wallet === 'cash'){
         if(transaction.typeTransaction==='income'){
             wallet.cash += transaction.value
@@ -11,6 +20,8 @@ async function addTransactionController(transaction: Transaction) {
             wallet.cash -= transaction.value
         }
     }
+    // xử lí nếu chọn ví tiết kiệm
+
     else if(transaction.wallet === 'saving'){
         if(transaction.typeTransaction==='income'){
             wallet.saving += transaction.value
@@ -20,10 +31,15 @@ async function addTransactionController(transaction: Transaction) {
 
     }
 
-    wallet.total = wallet.saving + wallet.cash
     await updateDocController('wallet' ,wallet , wallet.uid)
 }
 
+
+/**
+ * Hàm tính tổng value trong 1 mảng các giao dịch
+ * 
+ * @param {array} arr truyền vào array chứa các giao dịch
+ */
 function caculateTotalValueTransactions(arr: Transaction[]) : number {
     return arr.reduce((pre , item) => { 
         return pre + item.value

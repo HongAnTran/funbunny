@@ -7,10 +7,13 @@ import PrivateRouter from "../utils/PrivateRouter";
 import Loadable from "../ui-component/Loadable";
 
 import MainLayout from "../layout/MainLayout";
+
 const DashboardDefault = Loadable(
   lazy(() => import("../views/dashboard"))
 );
-
+const Report = Loadable(
+  lazy(() => import("../views/report"))
+);
 const AddTransaction  = Loadable(
   lazy(() => import("../views/addTransastion"))
 );
@@ -33,6 +36,10 @@ const MainRoutes: RouteObject = {
     {
       path: "dashboard",
       element: <DashboardDefault />,
+    },
+    {
+      path: "report",
+      element: <Report />,
     },
     {
       path: "add-transastion",

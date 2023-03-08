@@ -3,18 +3,25 @@
         "dashboard":"Dashboard",
         "analytics":"Analytics",
         "tasks":"Tasks",
-        "insights":"Insights"
+        "insights":"Insights",
+        "report" : "Report"
     },
     "card":{
         "total_spending":"Total Spending",
-        "total_income":"Total Income"
+        "total_income":"Total Income",
+        "today":"Today",
+        "this_month":"This month"
+
     },
     "common":{
         "edit":"edit",
         "add":"add",
-        "wallet":"wallet",
+        "my_wallet":"my wallet",
         "view":"view"
 
+    },
+    "validate":{
+        "required":"Please enter this field"
     }
 
 }

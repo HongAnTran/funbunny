@@ -3,20 +3,28 @@
         "dashboard":"Bảng điều khiển",
         "analytics":"Phân tích",
         "tasks":"Công việc",
-        "insights":"Insights"
+        "insights":"Insights",
+        "report" : "Báo cáo"
+
     },
     "card":{
         "total_spending":"Tổng chi tiêu",
-        "total_income":"Tổng thu nhập"
+        "total_income":"Tổng thu nhập",
+        "today":"Hôm nay",
+        "this_month":"Tháng này"
+
         
     }
     ,
     "common":{
         "edit":"chỉnh sửa",
         "add":"thêm",
-        "wallet":"ví",
+        "my_wallet":"ví của tôi",
         "view":"xem"
 
+    },
+    "validate":{
+        "required":"Vui lòng nhập trường này"
     }
 }
   

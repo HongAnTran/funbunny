@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 
 import { gridSpacing } from "../../../constans/constant";
+import ViewTransactions from "./ViewTransactions";
+import ViewReport from "./ViewReport";
 
 
 // styles
@@ -67,14 +69,14 @@ const ToolDarkCard = ({ isLoading }: { isLoading: boolean }) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container spacing={gridSpacing}>
+            <Grid container spacing={1}>
               <Grid item xs={6}>
                 <Box
                   sx={{
                     display: "flex",
                     "& > :not(style)": {
                       m: 1,
-                      width: 128,
+                      width: '100%',
                       height: 128,
                     },
                   }}
@@ -90,14 +92,51 @@ const ToolDarkCard = ({ isLoading }: { isLoading: boolean }) => {
                     display: "flex",
                     "& > :not(style)": {
                       m: 1,
-                      width: 128,
+                      width: '100%',
+
                       height: 128,
                     },
                   }}
                 >
-                  <Paper variant="outlined" />
+                   <Paper variant="outlined" > 
+                     <ViewTransactions />
+                  </Paper>
                 </Box>
               </Grid>
+              <Grid item xs={6}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    "& > :not(style)": {
+                      m: 1,
+                      width: '100%',
+
+                      height: 128,
+                    },
+                  }}
+                >
+                   <Paper variant="outlined" > 
+                     <ViewReport />
+                  </Paper>
+                </Box>
+              </Grid>
+              {/* <Grid item xs={6}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    "& > :not(style)": {
+                      m: 1,
+                      width: '100%',
+
+                      height: 128,
+                    },
+                  }}
+                >
+                   <Paper variant="outlined" > 
+                     <ViewTransactions />
+                  </Paper>
+                </Box>
+              </Grid> */}
             </Grid>
           </CardContent>
         </CardWrapper>

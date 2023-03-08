@@ -7,14 +7,14 @@ const icons = { IconDeviceAnalytics};
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
-const analytics :MenuItemChildren = {
-        id: 'analytics',
-        title: 'analytics',
+const report :MenuItemChildren = {
+        id: 'report',
+        title: 'report',
         type: 'item',
-        url: '/analytics',
+        url: '/report',
         icon: icons.IconDeviceAnalytics,
         breadcrumbs: true,    
     
 };
 
-export default analytics;
+export default report;

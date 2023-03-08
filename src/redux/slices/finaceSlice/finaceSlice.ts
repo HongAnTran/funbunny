@@ -5,7 +5,6 @@ import { FinaceSlice, Wallet } from "../../../types/main";
 const initialState: FinaceSlice = {
   wallet: {
     uid: "",
-    total: 0,
     saving: 0,
     cash: 0,
   },

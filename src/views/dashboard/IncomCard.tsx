@@ -4,16 +4,10 @@ import { useState } from "react";
 import { useTheme, styled } from "@mui/material/styles";
 import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
 
-// third-party
-import Chart from "react-apexcharts";
 
 // project imports
 import MainCard from "../../ui-component/cards/MainCard";
 import SkeletonTotalOrderCard from "../../ui-component/cards/Skeleton/EarningCard";
-
-import ChartDataMonth from "./chart-data/total-order-month-line-chart";
-import ChartDataYear from "./chart-data/total-order-year-line-chart";
-
 // assets
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
@@ -75,30 +69,26 @@ const CardWrapper = styled(MainCard)(({ theme }: { theme: any }) => ({
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
-const TotalOrderLineChartCard = ({ isLoading }: { isLoading: boolean }) => {
+const IcomCard = ({ isLoading }: { isLoading: boolean }) => {
   const theme: any = useTheme();
   const { t } = useTranslation();
 
   const [timeValue, setTimeValue] = useState(true); // false là tổng số tiền giao dich tháng này true là ngày hôm nay
-  const [distanceTime, setDistanceTime] = useState(calculateMillisecondDate()); 
-
-
+  const [distanceTime, setDistanceTime] = useState(calculateMillisecondDate());
 
   const [valueTransaction, setValueTransaction] = useState(0); // tổng số tiên giao dịch
   const handleChangeTime = (event: any, newValue: any) => {
-    const timeOfOneDay = calculateMillisecondDate()
-    const timeOfOneMonth = calculateMillisecondDate(1) 
-    if(newValue !== timeValue){
-        if (newValue) {
-            setDistanceTime(timeOfOneDay);
-        } else {
-            setDistanceTime(timeOfOneMonth);
-        }
-        setTimeValue(newValue)
-    } 
+    const timeOfOneDay = calculateMillisecondDate();
+    const timeOfOneMonth = calculateMillisecondDate(1);
+    if (newValue !== timeValue) {
+      if (newValue) {
+        setDistanceTime(timeOfOneDay);
+      } else {
+        setDistanceTime(timeOfOneMonth);
+      }
+      setTimeValue(newValue);
+    }
   };
-
-
 
   const [listTran, isLoadingTran] = useGetDocs<Transaction>(
     "transactions",
@@ -116,9 +106,8 @@ const TotalOrderLineChartCard = ({ isLoading }: { isLoading: boolean }) => {
   );
 
   React.useEffect(() => {
-    if (listTran.length > 0) {
-      setValueTransaction(caculateTotalValueTransactions(listTran));
-    }
+    // khi danh sách giao dịch thay đổi thì tính lại tổng giá trị của tất cả giao dịch
+    setValueTransaction(caculateTotalValueTransactions(listTran));
   }, [listTran]);
   return (
     <>
@@ -152,7 +141,7 @@ const TotalOrderLineChartCard = ({ isLoading }: { isLoading: boolean }) => {
                       sx={{ color: "inherit" }}
                       onClick={(e) => handleChangeTime(e, true)}
                     >
-                      Hôm nay
+                      {t("card.today")}
                     </Button>
                     <Button
                       disableElevation
@@ -161,14 +150,14 @@ const TotalOrderLineChartCard = ({ isLoading }: { isLoading: boolean }) => {
                       sx={{ color: "inherit" }}
                       onClick={(e) => handleChangeTime(e, false)}
                     >
-                      Tháng này
+                      {t("card.this_month")}
                     </Button>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item sx={{ mb: 0.75 }}>
                 <Grid container alignItems="center">
-                  <Grid item xs={6}>
+                  <Grid item xs={12}>
                     <Grid container alignItems="center">
                       <Grid item>
                         <Typography
@@ -181,9 +170,17 @@ const TotalOrderLineChartCard = ({ isLoading }: { isLoading: boolean }) => {
                           }}
                         >
                           {isLoadingTran ? (
-                             <div style={{ width: 40  , height: 60 , display: 'flex' , justifyContent:'center' , alignItems: 'center'}}>
-                             <DotLoading  />
-                           </div>
+                            <div
+                              style={{
+                                width: 40,
+                                height: 60,
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                            >
+                              <DotLoading />
+                            </div>
                           ) : (
                             <PriceFormat value={valueTransaction} />
                           )}
@@ -217,13 +214,6 @@ const TotalOrderLineChartCard = ({ isLoading }: { isLoading: boolean }) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                  {/* <Grid item xs={6}>
-                    {timeValue ? (
-                      <Chart {...ChartDataMonth} />
-                    ) : (
-                      <Chart {...ChartDataYear} />
-                    )}
-                  </Grid> */}
                 </Grid>
               </Grid>
             </Grid>
@@ -234,4 +224,4 @@ const TotalOrderLineChartCard = ({ isLoading }: { isLoading: boolean }) => {
   );
 };
 
-export default TotalOrderLineChartCard;
+export default IcomCard;

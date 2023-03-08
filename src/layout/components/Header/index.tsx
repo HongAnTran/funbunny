@@ -54,14 +54,14 @@ function Header({ drawerOpen, handleLeftDrawerToggle} : {drawerOpen : boolean ; 
             </Box>
 
             {/* header search */}
-            <SearchSection />
+            {/* <SearchSection /> */}
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ flexGrow: 1 }} />
 
             {/* notification & profile */}
             <LangSection />
             <ModeSection />
-            <NotificationSection />
+            {/* <NotificationSection /> */}
             <ProfileSection />
         </>
     );

@@ -22,25 +22,25 @@ import {
 import * as Yup from "yup";
 import { Formik } from "formik";
 
-import AnimateButton from "../../../ui-component/extended/AnimateButton";
+import AnimateButton from "ui-component/extended/AnimateButton";
 
 import {
   strengthColor,
   strengthIndicator,
-} from "../../../utils/password-strength";
+} from "utils/password-strength";
 
 // firebase
 import { createUserWithEmailAndPassword  ,updateProfile} from "firebase/auth";
-import { auth } from "../../../firebaseConfig";
+import { auth } from "firebaseConfig";
 // assets
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { RootState } from "../../../redux/store";
-import Google from '../../../assets/images/icons/social-google.svg';
+import { RootState } from "redux/store";
+import Google from 'assets/images/icons/social-google.svg';
 
 // controler
-import {  setDocController } from "../../../controllers/common";
-import { Wallet } from "../../../types/main";
+import {  setDocController } from "controllers/common";
+import { Wallet } from "types/main";
 import { registerWithGoogleFirebase } from "controllers/authen";
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
@@ -90,7 +90,7 @@ const FirebaseRegister = ({ ...others }) => {
       await updateProfile(user,{ displayName:values.name})
  
       //initialization a wallet defaul , id equal uid
-      await setDocController<Wallet>('wallet',{ uid:user.uid,total : 0,cash:0,saving:0} , user.uid)
+      await setDocController<Wallet>('wallet',{ uid:user.uid,cash:0,saving:0} , user.uid)
       
     } catch (error : any) {
         console.error(error.code)
@@ -251,28 +251,7 @@ const FirebaseRegister = ({ ...others }) => {
               </FormControl>
             )}
 
-            {/* <Grid container alignItems="center" justifyContent="space-between">
-              <Grid item>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={checked}
-                      onChange={(event) => setChecked(event.target.checked)}
-                      name="checked"
-                      color="primary"
-                    />
-                  }
-                  label={
-                    <Typography variant="subtitle1">
-                      Agree with &nbsp;
-                      <Typography variant="subtitle1" component={Link} to="#">
-                        Terms & Condition.
-                      </Typography>
-                    </Typography>
-                  }
-                />
-              </Grid>
-            </Grid> */}
+
             {errors.submit && (
               <Box sx={{ mt: 3 }}>
                 <FormHelperText error>{errors.submit}</FormHelperText>

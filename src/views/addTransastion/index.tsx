@@ -182,6 +182,8 @@ function AddTransaction() {
                     name="value"
                     onBlur={handleBlur}
                     onChange={handleChange}
+                allowNegative={false}
+
                   />
                   {touched.value && errors.value && (
                     <FormHelperText

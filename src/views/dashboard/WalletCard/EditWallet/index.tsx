@@ -18,17 +18,19 @@ import PriceFormat from "ui-component/extended/PriceFormat";
 import { convertPriceStringToNumber } from "controllers/common";
 import { addTransactionController } from "controllers/transaction/transaction";
 import { useAuthContext } from "hooks";
+import { useTranslation } from "react-i18next";
 
 function EditWallet({ data , setOpen }: { data: Wallet ,setOpen : React.Dispatch<React.SetStateAction<boolean>> }) {
   const theme: any = useTheme();
   const { user } =  useAuthContext()
+  const { t } = useTranslation()
   return (
     <div>
       <Formik
         initialValues={data}
         validationSchema={Yup.object().shape({
-            cash: Yup.string().required('Vui lòng nhập trường này').max(100),
-            saving: Yup.string().required('Vui lòng nhập trường này').max(100),
+            cash: Yup.string().required(t('validate.required') || 'Vui lòng nhập trường này').max(100),
+            saving: Yup.string().required(t('validate.required') || 'Vui lòng nhập trường này').max(100),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -122,7 +124,7 @@ function EditWallet({ data , setOpen }: { data: Wallet ,setOpen : React.Dispatch
                 inputProps={{}}
                 id="outlined-adornment-email-login"
                 value={values.cash}
-                
+                allowNegative={false}
                 type="input"
                 name="cash"
                 onBlur={handleBlur}
@@ -157,6 +159,8 @@ function EditWallet({ data , setOpen }: { data: Wallet ,setOpen : React.Dispatch
                 name="saving"
                 onBlur={handleBlur}
                 onChange={handleChange}
+                allowNegative={false}
+
               />
               {touched.saving && errors.saving && (
                 <FormHelperText

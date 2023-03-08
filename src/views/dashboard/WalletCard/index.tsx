@@ -33,6 +33,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import MainDialog from "../../../ui-component/dialog/MainDialog";
 import ViewWallet from "./ViewWallet";
 import EditWallet from "./EditWallet";
+import DotLoading from "ui-component/extended/dotLoading/DotLoading";
 
 
 
@@ -68,14 +69,13 @@ const CardWrapper = styled(MainCard)(({ theme }: { theme: any }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
+const WalletCard = ({ isLoadingBig }: { isLoadingBig: boolean }) => {
   // hooks
   const { user } = useAuthContext()
   const { t } = useTranslation("translation", { keyPrefix: "common" });
   const theme: any = useTheme();
   // get wallet from server
-  const [ walletvalue ]  = useGetDocRealTime<Wallet>('wallet',user.uid , { 
-    total : 0,
+  const [ walletvalue  , isLoading ]  = useGetDocRealTime<Wallet>('wallet',user.uid , { 
     saving : 0,
     cash : 0,
     uid: user.uid,  
@@ -97,7 +97,7 @@ const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoadingBig ? (
         <TotalIncomeCard />
       ) : (
         <>
@@ -134,7 +134,7 @@ const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
                         fontSize: 16,
                       }}
                     >
-                      {t("wallet")}
+                      {t("my_wallet")}
                     </Typography>
                   }
                   primary={
@@ -144,7 +144,15 @@ const WalletCard = ({ isLoading }: { isLoading: boolean }) => {
                         color: theme.palette.warning.dark,
                       }}
                     >
-                      <PriceFormat value={walletvalue.total} />
+
+                  {isLoading ? (
+                        <div style={{ width: 40  , height: 60 , display: 'flex' , justifyContent:'center' , alignItems: 'center'}}>
+                          <DotLoading  />
+                        </div>
+                      ) : (
+                        <PriceFormat value={walletvalue.cash + walletvalue.saving}  />
+                      )}
+                   
                     </Typography>
                   }
                 />
