@@ -44,11 +44,11 @@ const Dashboard = () => {
             </Grid>
             <Grid   item xs={12} style={{flex:1}}>
                 <Grid container spacing={gridSpacing} style={{height: '100%'}}>
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={8} order={{ xs: 3, sm: 3 , md: 3 , lg : 2}}>
                         <TransactionsViewCard />
                     </Grid>
-                    <Grid item xs={12} md={4}>
-                         <ToolDarkCard  isLoading={isLoading}/>
+                    <Grid item xs={12} md={4} order={{ xs: 2, sm: 2  , md : 2 , lg: 3}} >
+                         <ToolDarkCard  isLoading={isLoading} />
                     </Grid>
                 </Grid>
             </Grid>

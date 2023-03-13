@@ -17,6 +17,7 @@ import { Transaction } from "types/main";
 import { caculateTotalValueTransactions } from "controllers/transaction/transaction";
 import { calculateMillisecondDate } from "controllers/date";
 import DotLoading from "ui-component/extended/dotLoading/DotLoading";
+import { useAuthContext } from "hooks";
 
 const CardWrapper = styled(MainCard)(({ theme }: { theme: any }) => ({
   backgroundColor:
@@ -72,6 +73,7 @@ const CardWrapper = styled(MainCard)(({ theme }: { theme: any }) => ({
 const SpendingCard = ({ isLoading }: { isLoading?: boolean }) => {
   const theme: any = useTheme();
   const { t } = useTranslation();
+  const { user } = useAuthContext();
 
   const [timeValue, setTimeValue] = useState(true); // false là tổng số tiền giao dich tháng này true là ngày hôm nay
 
@@ -95,6 +97,11 @@ const SpendingCard = ({ isLoading }: { isLoading?: boolean }) => {
     "transactions",
     [],
     [
+      {
+        fieldname: "uid",
+        operation: "==",
+        value: user.uid,
+      },
       {
         fieldname: "date.time",
         operation: ">=",

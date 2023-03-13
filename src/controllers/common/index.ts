@@ -1,4 +1,4 @@
-import { collection, addDoc ,updateDoc , doc ,setDoc ,serverTimestamp ,getDoc } from "firebase/firestore"; 
+import { collection, addDoc ,updateDoc , doc ,setDoc ,serverTimestamp ,getDoc , deleteDoc } from "firebase/firestore"; 
 import { db } from "../../firebaseConfig";
 import type { Collections } from '../../types/main'
 export const addDocController  = async <T extends { [x: string]: any}>(collectionName: Collections , value:T ) :Promise<string | null > =>{
@@ -53,7 +53,13 @@ export const setDocController = async <T extends { [x: string]: any}>(collection
       throw new Error(e);
     }
 }
-
+export const deleteDocController = async <T extends { [x: string]: any}>(collectionName: Collections , id : string ) :Promise<void> => {
+  try {
+    await deleteDoc(doc(db, collectionName,id));
+    } catch (e : any) {
+      throw new Error(e);
+    }
+}
 export function convertPriceStringToNumber(priceString: string | number): number {
   if (typeof priceString === "number") {
     return priceString;

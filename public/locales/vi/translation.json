@@ -4,7 +4,9 @@
         "analytics":"Phân tích",
         "tasks":"Công việc",
         "insights":"Insights",
-        "report" : "Báo cáo"
+        "report" : "Báo cáo",
+        "transaction history":"Lịch sử giao dịch"
+
 
     },
     "card":{
@@ -21,10 +23,17 @@
         "add":"thêm",
         "my_wallet":"ví của tôi",
         "view":"xem"
-
     },
     "validate":{
         "required":"Vui lòng nhập trường này"
+    },
+    "tool":{
+        "add_transaction":"Thêm giao dịch",
+        "transaction_history":"Lịch sử giao dịch",
+        "expense_report" : "Báo cáo chi tiêu"
+    },
+    "transaction":{
+        "recent_transactions":"Giao dịch gần đây"
     }
 }
   

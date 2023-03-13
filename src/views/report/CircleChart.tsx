@@ -85,7 +85,7 @@ function CircleChart({ data , isLoading  , title ='' } : {isLoading: boolean , d
               breakpoint: 480,
               options: {
                 chart: {
-                  width: 200
+                  width: 300
                 },
               
               }

@@ -6,6 +6,7 @@ import MainCard from "ui-component/cards/MainCard";
 import Avatar from "ui-component/extended/Avatar";
 import PriceFormat from "ui-component/extended/PriceFormat";
 import WalletIcon from "@mui/icons-material/Wallet";
+import { useTranslation } from "react-i18next";
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }: { theme: any }) => ({
@@ -40,7 +41,7 @@ const CardWrapper = styled(MainCard)(({ theme }: { theme: any }) => ({
 }));
 function ViewWallet({ data }: { data: Wallet }) {
   const theme: any = useTheme();
-
+  const { t } = useTranslation();
   return (
     <div>
       <Grid container spacing={gridSpacing} style={{minWidth:'300px'}}>
@@ -78,8 +79,8 @@ function ViewWallet({ data }: { data: Wallet }) {
                         fontSize: 16,
                       }}
                     >
-                      {/* {t("wallet")} */}
-                      Tiền mặt
+                      {t("common.cash")}
+                    
                     </Typography>
                   }
                   primary={
@@ -135,7 +136,8 @@ function ViewWallet({ data }: { data: Wallet }) {
                       }}
                     >
                       {/* {t("wallet")} */}
-                      Tiết kiệm
+                      {t("common.saving")}
+
                     </Typography>
                   }
                   primary={

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./style.css";
 import { Category, Transaction, TypeTransaction } from "types/main";
@@ -6,7 +6,6 @@ import PriceFormat from "ui-component/extended/PriceFormat";
 
 import { toast, ToastContainer } from "react-toastify";
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { useAuthContext } from "hooks";
 import { useTheme } from "@mui/material/styles";
 import {
   Box,
@@ -22,58 +21,34 @@ import {
   TextareaAutosize,
   ListItemIcon,
   ListItemText,
-  Breadcrumbs,
-  Typography,
+
 } from "@mui/material";
 
 import { expenseCategory, incomeCategory } from "constans/categories";
 // third party
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { addTransactionController } from "controllers/transaction/transaction";
+import { addTransactionController, editTransactionController } from "controllers/transaction/transaction";
 import { convertPriceStringToNumber } from "controllers/common";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import HomeIcon from '@mui/icons-material/Home';
-import GrainIcon from '@mui/icons-material/Grain';
-import { Link } from "react-router-dom";
-function AddTransaction() {
-  const theme: any = useTheme();
-  const [tran, setTran] = useState<TypeTransaction>("spending");
-  const { user } = useAuthContext();
-  const [categories, setCategories] = useState<Category[]>(expenseCategory);
-  const initValueTransactions = useMemo(() => {
-    const initValueTransactions: Transaction = {
-      uid: user.uid,
-      value: 0,
-      typeTransaction: "spending",
-      idCategory: categories[0].id,
-      wallet: "cash",
-      note: "",
-      imageDescription: "",
-      date:{
-        time: new Date().getTime(),
-        date:new Date(),
-        day: new Date().getDate(),
-        month: new Date().getMonth()+1,
-        year: new Date().getFullYear(),
+
+
+function FormTransaction( {typeForm , data  , id} : { typeForm: 'add' | 'edit' , data : Transaction , id? : string }  ) {
+    const theme: any = useTheme();
+    const [tran, setTran] = useState<TypeTransaction>("spending");
+    const [categories, setCategories] = useState<Category[]>(expenseCategory);
+    useEffect(() => {
+      if (tran === "income") {
+        setCategories(incomeCategory);
+      } else {
+        setCategories(expenseCategory);
       }
-    };
-    return initValueTransactions;
-  }, [categories, user]);
-
-  useEffect(() => {
-    if (tran === "income") {
-      setCategories(incomeCategory);
-    } else {
-      setCategories(expenseCategory);
-    }
-  }, [tran]);
-
+    }, [tran]);
   return (
     <>
-      <ToastContainer
+          <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -85,24 +60,10 @@ function AddTransaction() {
         pauseOnHover
         theme="light"
       />
-    <Breadcrumbs aria-label="breadcrumb">
-        <Link to="/">
-          <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          Bảng điều khiển
-        </Link>
-        <Typography
-          sx={{ display: 'flex', alignItems: 'center' }}
-          color="text.primary"
-        >
-          <GrainIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          Thêm giao dịch
-        </Typography>
-      </Breadcrumbs>
-      <div>
-        <h1>Thêm giao dịch</h1>
-      </div>
-      <Formik
-        initialValues={initValueTransactions}
+  
+    <Formik
+        initialValues={data}
+        enableReinitialize={true}
         validationSchema={Yup.object().shape({
           value: Yup.string().required("vui lòng nhập giá trị"),
           typeTransaction: Yup.string().required("Vui lòng chọn nhóm"),
@@ -116,8 +77,16 @@ function AddTransaction() {
           try {
             values.value = convertPriceStringToNumber(values.value);
 
-            await addTransactionController(values);
-            toast("Thêm giao dịch thành công", {
+            if(typeForm ==='add'){
+                await addTransactionController(values);
+
+            }else{
+                if(id){
+                    await editTransactionController(values ,id );
+                }
+
+            }
+            toast(typeForm === 'add' ?  "Thêm giao dịch thành công" : "Cập nhập giao dịch thành công", {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -136,7 +105,7 @@ function AddTransaction() {
             // setErrors({ submit: err });
 
             setSubmitting(false);
-            toast.error(`Thêm giao dịch thất bài ${err} `, {
+            toast.error(typeForm === 'add' ?  `Thêm giao dịch thất bài ${err} ` : `Cập nhập giao dịch thất bài ${err}` , {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -215,7 +184,11 @@ function AddTransaction() {
                       value={values.typeTransaction}
                       onChange={(e) => {
                         setTran(e.target.value as TypeTransaction);
-                        setFieldValue("idCategory", "");
+                        if(e.target.value ==='income'){
+                          setFieldValue("idCategory" , incomeCategory[0].id);
+                        }else{
+                          setFieldValue("idCategory" , expenseCategory[0].id);
+                        }
                         return handleChange(e);
                       }}
                     >
@@ -249,7 +222,7 @@ function AddTransaction() {
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       name="idCategory"
-                      value={values.idCategory}
+                      value={values.idCategory ? values.idCategory : categories[0].id}
                       onChange={handleChange}
                     >
                       {categories.map((cate) => {
@@ -319,8 +292,8 @@ function AddTransaction() {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DateTimePicker
                         inputFormat="DD/MM/YYYY HH:mm a"
-                        value={values.date.date}
-                        // name="date"
+                        value={values?.date.time}
+                      
                         onChange={(newValue : any) => {
                             setFieldValue('date',{
                               time: new Date(newValue)?.getTime(),
@@ -330,7 +303,7 @@ function AddTransaction() {
                               year: new Date(newValue)?.getFullYear(),
                               
                             })
-                          // setFieldValue("date", newValue);
+                         
                         }}
                         renderInput={(params) => <TextField {...params} />}
                       />
@@ -371,15 +344,15 @@ function AddTransaction() {
                 {isSubmitting ? (
                   <CircularProgress size={30} />
                 ) : (
-                  "Thêm giao dịch"
+                    typeForm === 'add' ?  "Thêm giao dịch" : "Cập nhập giao dịch"
                 )}
               </Button>
             </Box>
           </form>
         )}
       </Formik>
-    </>
-  );
+      </>
+  )
 }
 
-export default AddTransaction;
+export default FormTransaction

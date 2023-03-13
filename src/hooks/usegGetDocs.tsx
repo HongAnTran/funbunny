@@ -70,14 +70,15 @@ const useGetDocs = <T,>(
         let arr: T[] = [];
         querySnapshot.forEach((doc) => {
           arr.push({
-            _id: doc.id,
             ...(doc.data() as T),
+            _id: doc.id,
           });
         });
         setData(arr);
       } catch (error) {
         setIsError(true);
-        alert(error);
+        console.log(error);
+        // alert(error);
       } finally {
         setIsLoading(false);
       }

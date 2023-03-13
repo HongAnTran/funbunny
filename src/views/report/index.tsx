@@ -20,9 +20,12 @@ import { formatDataChart } from "controllers/chart";
 
 import { IconDeviceAnalytics} from '@tabler/icons';
 import { caculateTotalValueTransactions } from "controllers/transaction/transaction";
+import { useAuthContext } from "hooks";
 
 
 function Report() {
+  const { user } = useAuthContext();
+
   const [dataCircleSpending, setDataCircleSpending] = useState<{
     labels: string[];
     series: number[];
@@ -44,6 +47,11 @@ function Report() {
     "transactions",
     [],
     [
+      {
+        fieldname: "uid",
+        operation: "==",
+        value: user.uid,
+      },
       {
         fieldname: "date.time",
         operation: ">=",

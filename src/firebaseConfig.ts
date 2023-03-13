@@ -18,9 +18,9 @@ const PORT_URL = 8080
 const app = initializeApp(firebaseConfig);
 // firestore
 const db = getFirestore(app);
-connectFirestoreEmulator(db, 'localhost',PORT_URL);
+// connectFirestoreEmulator(db, 'localhost',PORT_URL);
 //firebase auth
 const auth = getAuth(app);
 
-connectAuthEmulator(auth, "http://localhost:9099");
+// connectAuthEmulator(auth, "http://localhost:9099");
 export { auth , db };

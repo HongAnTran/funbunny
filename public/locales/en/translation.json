@@ -4,7 +4,8 @@
         "analytics":"Analytics",
         "tasks":"Tasks",
         "insights":"Insights",
-        "report" : "Report"
+        "report" : "Report",
+        "transaction history":"Transaction history"
     },
     "card":{
         "total_spending":"Total Spending",
@@ -17,11 +18,22 @@
         "edit":"edit",
         "add":"add",
         "my_wallet":"my wallet",
-        "view":"view"
-
+        "cash":"cash",
+        "saving":"saving",
+        "save":"save"
     },
     "validate":{
         "required":"Please enter this field"
+    },
+    "tool":{
+        "add_transaction":"Add transaction",
+        "transaction_history":"Transaction history",
+        "expense_report" : "Expense report"
+    },
+    "transaction":{
+        "recent_transactions":"recent transactions",
+        "transaction_history":"Transaction history",
+        "expense_report" : "Expense report"
     }
 
 }

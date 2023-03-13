@@ -16,7 +16,11 @@ const useGetDoc  =<T,>  (collection : Collections, id : string , initialdata : T
             const docRef = doc(db, collection, id);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
-                setData(docSnap.data() as T)
+                const data = {
+                    _id:docSnap.id,
+                    ...docSnap.data()
+                }
+                setData(data as T)
             }else {
                 setIsError(true)
             }

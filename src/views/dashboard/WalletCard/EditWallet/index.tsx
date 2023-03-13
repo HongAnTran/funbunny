@@ -38,6 +38,7 @@ function EditWallet({ data , setOpen }: { data: Wallet ,setOpen : React.Dispatch
             const saving = convertPriceStringToNumber(values.saving)
             if(cash !== data.cash){
               let dataTran : Transaction = {
+        
                 uid:user.uid,
                 value :cash - data.cash,
                 typeTransaction : 'income',
@@ -65,6 +66,7 @@ function EditWallet({ data , setOpen }: { data: Wallet ,setOpen : React.Dispatch
 
             if(saving !== data.saving){
               let dataTran : Transaction = {
+             
                 uid:user.uid,
                 value :saving - data.saving,
                 typeTransaction : 'income',
@@ -115,6 +117,7 @@ function EditWallet({ data , setOpen }: { data: Wallet ,setOpen : React.Dispatch
             >
               <InputLabel htmlFor="outlined-adornment-email-login">
                 Cash
+                {t('common.cash')}
               </InputLabel>
 
               <PriceFormat
@@ -145,7 +148,8 @@ function EditWallet({ data , setOpen }: { data: Wallet ,setOpen : React.Dispatch
               sx={{ ...theme.typography.customInput }}
             >
               <InputLabel htmlFor="outlined-adornment-email-login">
-              Saving
+              {t("common.saving")}
+                
               </InputLabel>
 
               <PriceFormat
@@ -182,7 +186,7 @@ function EditWallet({ data , setOpen }: { data: Wallet ,setOpen : React.Dispatch
                   variant="contained"
                   color="secondary"
                 >
-                  {isSubmitting ? <CircularProgress size={30} /> : "Save"}
+                  {isSubmitting ? <CircularProgress size={30} /> : t('common.save')}
                 </Button>
               </AnimateButton>
             </Box>

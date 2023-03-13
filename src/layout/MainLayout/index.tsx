@@ -20,6 +20,7 @@ import { IconChevronRight } from '@tabler/icons';
 
 import type { RootState } from '../../redux/store'
 import { setMenu } from '../../redux/slices/customSlice/customSlice'
+import NavigationScroll from 'layout/NavigationScroll';
 
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }:{ theme : any; open :boolean}) => ({
@@ -84,6 +85,9 @@ const MainLayout = () => {
     }, [dispatch , matchDownMd]);
 
     return (
+        <NavigationScroll>
+
+     
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             {/* header */}
@@ -113,6 +117,7 @@ const MainLayout = () => {
             </Main>
             {/* <Customization /> */}
         </Box>
+        </NavigationScroll>
     );
 };
 

@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import type { RootState } from './redux/store'
 // routing
-import Routes from  './routes';
+import routes from  './routes';
 
 // import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,6 +14,7 @@ import themes from './themes';
 
 // project imports
 import NavigationScroll from './layout/NavigationScroll';
+import { RouterProvider } from 'react-router-dom';
 
 // ==============================|| APP ||============================== //
 
@@ -24,11 +25,7 @@ const App = () => {
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={themes(customization)}>
                 <CssBaseline />
-                <NavigationScroll>
-                    <Routes />
-                   
-                </NavigationScroll>
-                {/* <ToastContainer /> */}
+                    <RouterProvider router={routes()} />
             </ThemeProvider>
         </StyledEngineProvider>
     );
