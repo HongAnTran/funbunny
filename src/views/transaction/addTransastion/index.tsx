@@ -19,7 +19,7 @@ function AddTransaction() {
       uid: user.uid,
       value: 0,
       typeTransaction: "spending",
-      idCategory: '',
+      idCategory: 'an-uong',
       wallet: "cash",
       note: "",
       imageDescription: "",

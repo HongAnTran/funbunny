@@ -1,11 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 
 
 import { gridSpacing } from '../../constans/constant';
 // material-ui
 import {  Avatar, Breadcrumbs,   Grid, TextField, Typography, useMediaQuery, useTheme, } from "@mui/material";
-
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { Stack } from "@mui/system";
 
@@ -17,7 +21,7 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { IconDeviceAnalytics} from '@tabler/icons';
-import { caculateTotalValueTransactions, deleteTransactionController } from "controllers/transaction/transaction";
+import {  deleteTransactionController } from "controllers/transaction/transaction";
 import { useAuthContext } from 'hooks';
 import CategoryTransaction from 'ui-component/extended/CategoryTransaction';
 import FormatTime from 'ui-component/extended/FormatTime';
@@ -27,7 +31,6 @@ import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDown
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -43,6 +46,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import MainDialog from 'ui-component/dialog/MainDialog';
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 
@@ -134,11 +138,12 @@ const History = () => {
     const [selected, setSelected] = useState<readonly string[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [openView, setOpenView] = useState<boolean>(false);
+    const [dataView, setDataView] = useState<Transaction>({} as Transaction);
 
     const matchDownsm = useMediaQuery(theme.breakpoints.down('sm'));
-  console.log(matchDownsm)
   const navigation = useNavigate()
-    const [transactions, isLoading] = useGetDocs<Transaction>(
+    const [transactions] = useGetDocs<Transaction>(
         "transactions",
         [],
         [
@@ -158,7 +163,7 @@ const History = () => {
             value: dateTo,
           },
         ],
-          10,
+          25,
         {
           type: "desc",
           field: "date.time",
@@ -220,8 +225,9 @@ const History = () => {
 
  
     return (
+      <>
         <Grid container spacing={gridSpacing}>
-        <Grid item md={12} sm={12} lg={12}>
+        <Grid item md={12} sm={12} lg={12} xs={12}>
           <MainCard>
         <Breadcrumbs aria-label="breadcrumb">
             <IconDeviceAnalytics  style={{marginRight:6 , marginTop:4}} fontSize="inherit"  />
@@ -235,7 +241,7 @@ const History = () => {
               </MainCard>
       </Grid>
    
-          <Grid item md={12} sm={12} lg={12}>
+          <Grid item md={12} sm={12} lg={12} xs={12}>
             <MainCard content={true}>
               <Grid container spacing={gridSpacing}>
                 <Grid item md={12} sm={12} xs={12} lg={12}>
@@ -416,6 +422,8 @@ const History = () => {
                       <IconButton 
                       onClick={(e) =>{
                         e.preventDefault() 
+                        setDataView(row)
+                        setOpenView(true)
                        
                       }
                       }
@@ -463,6 +471,28 @@ const History = () => {
             </MainCard>
           </Grid>
         </Grid>
+        <MainDialog open={openView} setOpen={setOpenView}  title="Xem giao dịch" >
+                {/* <EditWallet data={walletvalue} setOpen={setOpenEdit}/> */}
+                <Card sx={{ minWidth: 275 }}>
+      <CardContent>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                  <CategoryTransaction  idCategory={dataView?.idCategory} type={dataView?.typeTransaction}></CategoryTransaction>
+        </Typography>
+    
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                  <FormatTime time={dataView?.date?.time} ></FormatTime>
+        </Typography>
+        <Typography variant="body2">
+          <PriceFormat value={dataView?.value}></PriceFormat>
+        </Typography>
+        <Typography variant="body2">
+                  {dataView?.note}
+        </Typography>
+      </CardContent>
+    
+    </Card>
+             </MainDialog>   
+        </>
     );
 };
 

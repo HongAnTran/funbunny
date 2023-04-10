@@ -22,7 +22,10 @@
         "edit":"chỉnh sửa",
         "add":"thêm",
         "my_wallet":"ví của tôi",
-        "view":"xem"
+        "view":"xem",
+        "cash":"tiền mặt",
+        "saving":"tiết kiệm",
+        "save":"lưu"
     },
     "validate":{
         "required":"Vui lòng nhập trường này"

@@ -106,9 +106,9 @@ const TotalGrowthBarChart = ({ isLoading  ,data} : {isLoading: boolean , data: {
                                         <Grid item>
                                             <Typography variant="h4">Khoản thu & Khoản chi </Typography>
                                         </Grid>
-                                        <Grid item>
+                                        {/* <Grid item>
                                             <Typography variant="h5">Thu nhập ròng: <PriceFormat value={ data.series?.[1]?.data - data.series?.[0]?.data || 0 }  /></Typography>
-                                        </Grid>
+                                        </Grid> */}
                                     </Grid>
                                 </Grid>
                             

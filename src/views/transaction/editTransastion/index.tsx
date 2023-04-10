@@ -13,25 +13,8 @@ import { getDocController } from "controllers/common";
 import { useParams } from "react-router-dom";
 
 function EditTransaction() {
-  // const { transaction } = useLoaderData() as { transaction : Transaction}
-  const { user } = useAuthContext();
   const navigation = useNavigate();
-  const [ data , setData ] = useState<Transaction>({
-    uid: user.uid,
-    value: 0,
-    typeTransaction: "spending",
-    idCategory: '',
-    wallet: "cash",
-    note: "",
-    imageDescription: "",
-    date:{
-      time: new Date().getTime(),
-      date:new Date(),
-      day: new Date().getDate(),
-      month: new Date().getMonth()+1,
-      year: new Date().getFullYear(),
-    }
-  })
+  const [ data , setData ] = useState<Transaction | null >(null)
   const { transactionId } = useParams()
   useEffect(() => {
     (async () => {
@@ -68,7 +51,7 @@ function EditTransaction() {
       <div>
         <h1>Sửa giao dịch</h1>
       </div>
-      <FormTransaction typeForm="edit" data={data}  id={transactionId}/>
+      {data && <FormTransaction typeForm="edit" data={data}  id={transactionId}/>}
     </>
   );
 }

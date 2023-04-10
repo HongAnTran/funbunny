@@ -21,6 +21,7 @@ import { formatDataChart } from "controllers/chart";
 import { IconDeviceAnalytics} from '@tabler/icons';
 import { caculateTotalValueTransactions } from "controllers/transaction/transaction";
 import { useAuthContext } from "hooks";
+import PriceFormat from "ui-component/extended/PriceFormat";
 
 
 function Report() {
@@ -42,6 +43,9 @@ function Report() {
 
   const [dateFrom, setDateFrom] = useState<number>(calculateMillisecondDate(1));
   const [dateTo, setDateTo] = useState<number>(new Date().getTime());
+  const [totalIncome, setTotalIncome] = useState<number>(0);
+  const [totalSpending, setTotalSpending] = useState<number>(0);
+
 
   const [data, isLoading] = useGetDocs<Transaction>(
     "transactions",
@@ -74,16 +78,20 @@ function Report() {
     const dataIncome = data.filter((data) => data.typeTransaction === "income");
     const dataChartSpending = formatDataChart(dataSpending , 'spending')
     const dataChartIncome = formatDataChart(dataIncome , 'income')
+    const totalIncome = caculateTotalValueTransactions(dataIncome)
+    const totalSpending = caculateTotalValueTransactions(dataSpending)
+    setTotalIncome(totalIncome)
+    setTotalSpending(totalSpending)
     const dataChartColum = {
         labels: [`${new Date(dateFrom).getDate()}/${new Date(dateFrom).getMonth() + 1} - ${new Date(dateTo).getDate()}/${new Date(dateTo).getMonth() + 1}`],
         series:[
             {
                 name: 'Khoản chi',
-                data: [caculateTotalValueTransactions(dataSpending)]
+                data: [totalSpending]
             },
             {
                 name: 'Khoản thu',
-                data: [caculateTotalValueTransactions(dataIncome)]
+                data: [totalIncome]
             },
         ]
       }
@@ -97,13 +105,13 @@ function Report() {
       setDataChartColum({ labels: [], series: [] })
 
     }
-  }, [data , dateFrom , dateTo]);
+  }, [data , dateFrom , dateTo]); 
 
   
   return (
     <>
-      <Grid container spacing={gridSpacing}>
-      <Grid item md={12} sm={12} lg={12}>
+      <Grid container spacing={3}>
+      <Grid item md={12} sm={12} lg={12} xs={12}>
         <MainCard>
 
       <Breadcrumbs aria-label="breadcrumb">
@@ -118,7 +126,7 @@ function Report() {
             </MainCard>
     </Grid>
  
-        <Grid item md={12} sm={12} lg={12}>
+        <Grid item md={12} sm={12} lg={12} xs={12}>
           <MainCard content={true}>
             <Grid container spacing={gridSpacing}>
               <Grid item md={12} sm={12} xs={12} lg={12}>
@@ -149,6 +157,8 @@ function Report() {
                 </Stack>
               </Grid>
               <Grid item lg={4} md={12} sm={12} xs={12}>
+              <span> Tổng chi : <PriceFormat  value={totalSpending}/></span>
+
                 <CircleChart
                   isLoading={isLoading}
                   data={dataCircleSpending}
@@ -156,6 +166,7 @@ function Report() {
                 />
               </Grid>
               <Grid item lg={4} md={12} sm={12} xs={12}>
+                <span> Tổng thu : <PriceFormat  value={totalIncome}/></span>
                 <CircleChart
                   isLoading={isLoading}
                   data={dataCircleIncome}

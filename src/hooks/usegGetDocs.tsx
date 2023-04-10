@@ -78,7 +78,7 @@ const useGetDocs = <T,>(
       } catch (error) {
         setIsError(true);
         console.log(error);
-        // alert(error);
+        alert(error);
       } finally {
         setIsLoading(false);
       }

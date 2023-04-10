@@ -32,10 +32,10 @@ async function addTransactionController(transaction: Transaction) {
 
 }
 
-async function editTransactionController(transaction: Transaction ,idTransaction: string) {
-    await updateDocController<Transaction>("transactions", transaction , idTransaction);
-// lấy ra ví của user
-   await updateWalletByTransaction(transaction)
+async function editTransactionController(transaction: Transaction ,idTransaction: string , prevalue : Transaction) {
+    await deleteTransactionController(prevalue, idTransaction)
+    await addTransactionController(transaction)
+  
 }
 async function deleteTransactionController(transaction: Transaction ,idTransaction: string) {
     await deleteDocController<Transaction>("transactions", idTransaction);

@@ -37,15 +37,24 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 function FormTransaction( {typeForm , data  , id} : { typeForm: 'add' | 'edit' , data : Transaction , id? : string }  ) {
     const theme: any = useTheme();
-    const [tran, setTran] = useState<TypeTransaction>("spending");
-    const [categories, setCategories] = useState<Category[]>(expenseCategory);
+    const [tran, setTran] = useState<TypeTransaction>(data.typeTransaction);
+    const [categories, setCategories] = useState<Category[]>(()=>{
+      if(data.typeTransaction === 'spending'){
+        return expenseCategory
+      }else if (data.typeTransaction ==='income'){
+        return incomeCategory
+      }
+      else return expenseCategory
+    });
+  const dataPrev :Transaction = {...data}
     useEffect(() => {
+
       if (tran === "income") {
         setCategories(incomeCategory);
       } else {
         setCategories(expenseCategory);
       }
-    }, [tran]);
+    }, [tran ]);
   return (
     <>
           <ToastContainer
@@ -82,7 +91,8 @@ function FormTransaction( {typeForm , data  , id} : { typeForm: 'add' | 'edit' ,
 
             }else{
                 if(id){
-                    await editTransactionController(values ,id );
+                
+                    await editTransactionController(values ,id , dataPrev);
                 }
 
             }
@@ -222,7 +232,7 @@ function FormTransaction( {typeForm , data  , id} : { typeForm: 'add' | 'edit' ,
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       name="idCategory"
-                      value={values.idCategory ? values.idCategory : categories[0].id}
+                      value={values.idCategory}
                       onChange={handleChange}
                     >
                       {categories.map((cate) => {
