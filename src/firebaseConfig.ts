@@ -21,6 +21,6 @@ const db = getFirestore(app);
 // connectFirestoreEmulator(db, 'localhost',PORT_URL);
 //firebase auth
 const auth = getAuth(app);
-
+// auth.languageCode = 'vi'
 // connectAuthEmulator(auth, "http://localhost:9099");
 export { auth , db };

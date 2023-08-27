@@ -3,7 +3,7 @@ import type { Timestamp, WhereFilterOp ,OrderByDirection} from "firebase/firesto
 
 type TypeTransaction = 'spending' | 'income'
 type TypeWallet = 'cash' | 'saving' 
-type Collections = 'users' | 'transactions'| 'categorys' | 'wallet' 
+type Collections = 'users' | 'transactions'| 'categorys' | 'wallet' | 'taskItem'
  
  
 
@@ -75,4 +75,25 @@ interface Order {
   type : OrderByDirection 
 }
 
-export type { User,Transaction , Wallet ,Category ,TypeTransaction, TypeWallet ,Collections ,FinaceSlice , Condition ,Order}
+// interface TaskTable {
+//   id : string;
+//   uid:string
+//   title:string
+//   isStar:boolean
+//   createdAt : Date
+// }
+// interface TaskList {
+//   idTable : string
+//   order:number
+//   title:string
+// }
+
+interface TaskItem {
+  idList : 1 | 2 | 3
+  order:number
+  title:string
+  description?:string
+  createdAt : Date
+}
+
+export type { User,Transaction , Wallet ,Category ,TypeTransaction, TypeWallet ,Collections ,FinaceSlice , Condition ,Order ,TaskItem}

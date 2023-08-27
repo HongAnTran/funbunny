@@ -12,6 +12,10 @@ const DashboardDefault = Loadable(
 const Report = Loadable(
   lazy(() => import("../views/report"))
 );
+
+const Tasks = Loadable(
+  lazy(() => import("../views/tasks"))
+);
 const History = Loadable(
   lazy(() => import("../views/history"))
 );
@@ -46,6 +50,10 @@ const MainRoutes: RouteObject = {
     {
       path: "report",
       element: <Report />,
+    },
+    {
+      path: "tasks",
+      element: <Tasks />,
     },
     {
       path: "transaction-history",

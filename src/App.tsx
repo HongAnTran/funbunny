@@ -13,7 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import themes from './themes';
 
 // project imports
-import NavigationScroll from './layout/NavigationScroll';
+// import NavigationScroll from './layout/NavigationScroll';
 import { RouterProvider } from 'react-router-dom';
 
 // ==============================|| APP ||============================== //

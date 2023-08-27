@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {  signInWithEmailAndPassword  } from "firebase/auth";
 import { auth  } from 'firebaseConfig'
-// material-ui
+
 
 import { useTheme } from '@mui/material/styles';
 import {
@@ -38,7 +38,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Google from 'assets/images/icons/social-google.svg';
 import { registerWithGoogleFirebase } from 'controllers/authen';
 
-// ============================|| FIREBASE - LOGIN ||============================ //
+
+
+
 
 const FirebaseLogin = ({ ...others }) => {
     const theme : any= useTheme();
@@ -58,6 +60,40 @@ const FirebaseLogin = ({ ...others }) => {
     const handleMouseDownPassword = (event : any) => {
         event.preventDefault();
     };
+    // function sendOtp(){
+    //     const data =  new RecaptchaVerifier('btn-login', {
+    //         'size': 'invisible',
+    //         'callback': (response : any) => {
+    //           // reCAPTCHA solved, allow signInWithPhoneNumber.
+    //             console.log(response)
+              
+    //         }
+    //         , 'expired-callback': () => {
+    //             // Response expired. Ask user to solve reCAPTCHA again.
+    //             // ...
+    //             console.log('loi')
+    //           }
+    //       }, auth);
+    //     //   console.log(data.render())
+
+    //       signInWithPhoneNumber(auth,'+84886723413',data )
+    //           .then((confirmationResult) => {
+    //             console.log(confirmationResult)
+    //             // SMS sent. Prompt user to type the code from the message, then sign the
+    //             // user in with confirmationResult.confirm(code).
+    //             // window.confirmationResult = confirmationResult;
+    //             // ...
+               
+    //           }).catch((error) => {
+    //             // Error; SMS not sent
+    //             console.log(error)
+
+    //             // ...
+    //           });
+
+    // }
+   
+
 
     return (
         <>
@@ -81,7 +117,6 @@ const FirebaseLogin = ({ ...others }) => {
                         
                     } 
                     catch (err :any) {
-                           console.log(err.code);
                            let messageError : string =''
                            switch (err.code) {
                             case 'auth/user-not-found':
@@ -239,6 +274,7 @@ const FirebaseLogin = ({ ...others }) => {
                             onClick={googleHandler}
                             size="large"
                             variant="outlined"
+                            id='btn-login'
                             sx={{
                                 color: 'grey.700',
                                 backgroundColor: theme.palette.grey[50],
