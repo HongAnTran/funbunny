@@ -22,6 +22,7 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "apexcharts": "^3.36.3",
+    "caniuse-lite": "^1.0.30001524",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "firebase": "^9.15.0",
