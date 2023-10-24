@@ -4,7 +4,7 @@ import "./style.css";
 import { Category, Transaction, TypeTransaction } from "types/main";
 import PriceFormat from "ui-component/extended/PriceFormat";
 
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { useTheme } from "@mui/material/styles";
 import {
@@ -18,7 +18,6 @@ import {
   CircularProgress,
   Select,
   MenuItem,
-  TextareaAutosize,
   ListItemIcon,
   ListItemText,
 
@@ -57,18 +56,7 @@ function FormTransaction( {typeForm , data  , id} : { typeForm: 'add' | 'edit' ,
     }, [tran ]);
   return (
     <>
-          <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+
   
     <Formik
         initialValues={data}
@@ -152,9 +140,12 @@ function FormTransaction( {typeForm , data  , id} : { typeForm: 'add' | 'edit' ,
                   sx={{ ...theme.typography.customInput }}
                 >
                   <PriceFormat
+                  
                     isSuffix={false}
                     customInput={OutlinedInput}
-                    inputProps={{}}
+                    inputProps={{
+                      sx:{padding : '15px'}
+                    }}
                     id="outlined-adornment-email-login"
                     value={values.value}
                     type="input"
@@ -323,18 +314,22 @@ function FormTransaction( {typeForm , data  , id} : { typeForm: 'add' | 'edit' ,
               </Grid>
               <Grid item md={4}>
                 <InputLabel htmlFor="outlined-adornment-email-login">
-                  Ghí chú
+                  Ghi chú
                 </InputLabel>
                 <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
                   <FormControl fullWidth>
-                    <TextareaAutosize
-                      placeholder="ghi chú"
-                      maxRows={5}
-                      minRows={3}
-                      value={values.note}
-                      name="note"
-                      onChange={handleChange}
-                    />
+             
+                      <TextField
+          id="filled-multiline-flexible"
+       
+          // placeholder="ghi chú"
+          value={values.note}
+          multiline
+          maxRows={4}
+          variant="filled"
+          name="note"
+          onChange={handleChange}
+        />
                   </FormControl>
                 </FormControl>
               </Grid>

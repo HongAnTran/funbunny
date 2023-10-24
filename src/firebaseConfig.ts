@@ -13,7 +13,7 @@ const firebaseConfig : FirebaseOptions = {
   measurementId: "G-X15T1262HT"
 };
 
-const PORT_URL = 8080
+// const PORT_URL = 8080
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // firestore

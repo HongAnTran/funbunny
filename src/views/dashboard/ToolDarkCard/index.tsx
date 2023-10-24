@@ -64,7 +64,7 @@ const ToolDarkCard = ({ isLoading }: { isLoading: boolean }) => {
                   justifyContent="space-between"
                 >
                   <Grid item>
-                    <Typography variant="h4">Tools</Typography>
+                    <Typography variant="h4">Công cụ</Typography>
                   </Grid>
                 </Grid>
               </Grid>

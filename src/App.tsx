@@ -15,6 +15,7 @@ import themes from './themes';
 // project imports
 // import NavigationScroll from './layout/NavigationScroll';
 import { RouterProvider } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
 
 // ==============================|| APP ||============================== //
 
@@ -24,6 +25,18 @@ const App = () => {
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={themes(customization)}>
+            <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
                 <CssBaseline />
                     <RouterProvider router={routes()} />
             </ThemeProvider>
